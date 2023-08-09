@@ -1,0 +1,17 @@
+{
+  "name": "tree-sitter-icl",
+  "version": "0.1.0",
+  "description": "Grammar for IEEE 1687 ICL",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "author": "Daniel Rodriguez",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.8"
+  }
+}

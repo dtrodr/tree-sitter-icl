@@ -1,0 +1,72 @@
+==================
+Namespaces
+==================
+
+NameSpace A;
+UseNameSpace B;
+NameSpace;
+UseNameSpace;
+---
+
+(source_file
+  (namespace_definition
+    (identifier))
+  (use_namespace_definition
+    (identifier))
+  (namespace_definition)
+  (use_namespace_definition))
+
+==================
+Simple Module
+==================
+
+Module foo { }
+
+---
+
+(source_file
+  (module_definition
+    (identifier)
+    (module_body)))
+
+==================
+Simple Ports
+==================
+
+Module foo {
+    ScanInPort si;
+    CaptureEnPort ce;
+    ShiftEnPort se;
+    UpdateEnPort ue;
+    SelectPort sel;
+    ResetPort rst;
+    TCKPort tck;
+    ScanOutPort so;
+}
+
+---
+
+(source_file
+  (module_definition
+    (identifier)
+    (module_body
+        (scan_in_port_def
+            (identifier))
+        (capture_enable_port_def
+            (identifier))
+        (shift_enable_port_def
+            (identifier))
+        (update_enable_port_def
+            (identifier))
+        (select_enable_port_def
+            (identifier))
+        (reset_port_def
+            (identifier))
+        (tck_port_def
+            (identifier))
+        (scan_out_port_def
+            (identifier)))))
+
+
+
+
