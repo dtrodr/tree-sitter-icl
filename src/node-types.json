@@ -1,8 +1,161 @@
 [
   {
-    "type": "module_body",
+    "type": "attribute_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
+          "named": true
+        },
+        {
+          "type": "concat_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "capture_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "concat_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sized_number",
+          "named": true
+        },
+        {
+          "type": "unsized_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "concat_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_ref",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "escape_sequence",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "index",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "positive_integer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "capture_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "reset_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_in_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "select_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "shift_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "tck_port_definition",
+          "named": true
+        },
+        {
+          "type": "update_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "use_namespace_definition",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "module_definition",
@@ -13,11 +166,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "module_body",
           "named": true
         },
         {
-          "type": "module_body",
+          "type": "scalar_identifier",
           "named": true
         }
       ]
@@ -32,7 +185,253 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter_ref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "index",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "reset_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_in_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_out_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "scan_out_port_enable",
+          "named": true
+        },
+        {
+          "type": "scan_out_port_source",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_out_port_enable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_out_port_source",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shift_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "size",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "positive_integer",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sized_binary_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "size",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sized_decimal_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "size",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sized_hex_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "size",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sized_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sized_binary_number",
+          "named": true
+        },
+        {
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
           "named": true
         }
       ]
@@ -62,6 +461,112 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_content",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "tck_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unsized_binary_number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "unsized_decimal_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "positive_integer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unsized_hex_number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "unsized_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "positive_integer",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "update_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "use_namespace_definition",
     "named": true,
     "fields": {},
@@ -70,14 +575,70 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "scalar_identifier",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "\t",
+    "named": false
+  },
+  {
+    "type": " ",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "Attribute",
+    "named": false
+  },
+  {
+    "type": "B",
+    "named": false
+  },
+  {
+    "type": "CaptureEnPort",
+    "named": false
+  },
+  {
+    "type": "D",
+    "named": false
+  },
+  {
+    "type": "Enable",
+    "named": false
+  },
+  {
+    "type": "H",
     "named": false
   },
   {
@@ -89,11 +650,71 @@
     "named": false
   },
   {
+    "type": "ResetPort",
+    "named": false
+  },
+  {
+    "type": "ScanInPort",
+    "named": false
+  },
+  {
+    "type": "ScanOutPort",
+    "named": false
+  },
+  {
+    "type": "SelectPort",
+    "named": false
+  },
+  {
+    "type": "ShiftEnPort",
+    "named": false
+  },
+  {
+    "type": "Source",
+    "named": false
+  },
+  {
+    "type": "TCKPort",
+    "named": false
+  },
+  {
+    "type": "UpdateEnPort",
+    "named": false
+  },
+  {
     "type": "UseNameSpace",
     "named": false
   },
   {
-    "type": "identifier",
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "b",
+    "named": false
+  },
+  {
+    "type": "d",
+    "named": false
+  },
+  {
+    "type": "h",
+    "named": false
+  },
+  {
+    "type": "positive_integer",
+    "named": true
+  },
+  {
+    "type": "scalar_identifier",
     "named": true
   },
   {
@@ -102,6 +723,10 @@
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]

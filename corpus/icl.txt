@@ -10,9 +10,9 @@ UseNameSpace;
 
 (source_file
   (namespace_definition
-    (identifier))
+    (scalar_identifier))
   (use_namespace_definition
-    (identifier))
+    (scalar_identifier))
   (namespace_definition)
   (use_namespace_definition))
 
@@ -26,7 +26,7 @@ Module foo { }
 
 (source_file
   (module_definition
-    (identifier)
+    (scalar_identifier)
     (module_body)))
 
 ==================
@@ -48,25 +48,64 @@ Module foo {
 
 (source_file
   (module_definition
-    (identifier)
+    (scalar_identifier)
     (module_body
-        (scan_in_port_def
-            (identifier))
-        (capture_enable_port_def
-            (identifier))
-        (shift_enable_port_def
-            (identifier))
-        (update_enable_port_def
-            (identifier))
-        (select_enable_port_def
-            (identifier))
-        (reset_port_def
-            (identifier))
-        (tck_port_def
-            (identifier))
-        (scan_out_port_def
-            (identifier)))))
+      (scan_in_port_definition
+        (scalar_identifier))
+      (capture_enable_port_definition
+        (scalar_identifier))
+      (shift_enable_port_definition
+        (scalar_identifier))
+      (update_enable_port_definition
+        (scalar_identifier))
+      (select_enable_port_definition
+        (scalar_identifier))
+      (reset_port_definition
+        (scalar_identifier))
+      (tck_port_definition
+        (scalar_identifier))
+      (scan_out_port_definition
+        (scalar_identifier)))))
 
+
+==================
+ScanOutPort with Attributes
+==================
+Module m {
+    ScanOutPort so {
+        Attribute a0;
+        Attribute a1 = 7;
+        Attribute a2 = "baz";
+        Source foo;
+        Enable bar;
+    };
+}
+
+---
+(source_file
+  (module_definition
+    (scalar_identifier)
+    (module_body
+      (scan_out_port_definition
+        (scalar_identifier)
+        (attribute_definition
+          (scalar_identifier))
+        (attribute_definition
+          (scalar_identifier)
+          (attribute_value
+            (concat_number
+              (unsized_number
+                (positive_integer)))))
+        (attribute_definition
+          (scalar_identifier)
+          (attribute_value
+            (concat_string
+              (string
+                (string_content)))))
+      (scan_out_port_source
+        (scalar_identifier))
+      (scan_out_port_enable
+        (scalar_identifier))))))
 
 
 
