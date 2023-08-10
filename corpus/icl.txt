@@ -9,10 +9,8 @@ UseNameSpace;
 ---
 
 (source_file
-  (namespace_definition
-    (scalar_identifier))
-  (use_namespace_definition
-    (scalar_identifier))
+  (namespace_definition (scalar_identifier))
+  (use_namespace_definition (scalar_identifier))
   (namespace_definition)
   (use_namespace_definition))
 
@@ -42,6 +40,24 @@ Module foo {
     ResetPort rst;
     TCKPort tck;
     ScanOutPort so;
+    DataInPort data_in;
+    DataOutPort data_out;
+    ToShiftEnPort to_shift_en;
+    ToUpdateEnPort to_update_en;
+    ToCaptureEnPort to_capture_en;
+    ToSelectPort to_sel;
+    ToResetPort to_reset;
+    TMSPort tms;
+    ToTMSPort to_tms;
+    ToTCKPort to_tck;
+    ClockPort clock;
+    ToClockPort to_clock;
+    TRSTPort trst;
+    ToTRSTPort to_trst;
+    ToIRSelectPort to_ir_sel;
+    AddressPort address;
+    WriteEnPort write_en;
+    ReadEnPort read_en;
 }
 
 ---
@@ -50,62 +66,60 @@ Module foo {
   (module_definition
     (scalar_identifier)
     (module_body
-      (scan_in_port_definition
-        (scalar_identifier))
-      (capture_enable_port_definition
-        (scalar_identifier))
-      (shift_enable_port_definition
-        (scalar_identifier))
-      (update_enable_port_definition
-        (scalar_identifier))
-      (select_enable_port_definition
-        (scalar_identifier))
-      (reset_port_definition
-        (scalar_identifier))
-      (tck_port_definition
-        (scalar_identifier))
-      (scan_out_port_definition
-        (scalar_identifier)))))
-
+      (scan_in_port_definition (scalar_identifier))
+      (capture_enable_port_definition (scalar_identifier))
+      (shift_enable_port_definition (scalar_identifier))
+      (update_enable_port_definition (scalar_identifier))
+      (select_port_definition (scalar_identifier))
+      (reset_port_definition (scalar_identifier))
+      (tck_port_definition (scalar_identifier))
+      (scan_out_port_definition (scalar_identifier))
+      (data_in_port_definition (scalar_identifier))
+      (data_out_port_definition (scalar_identifier))
+      (to_shift_enable_port_definition (scalar_identifier))
+      (to_update_enable_port_definition (scalar_identifier))
+      (to_capture_enable_port_definition (scalar_identifier))
+      (to_select_port_definition (scalar_identifier))
+      (to_reset_port_definition (scalar_identifier))
+      (tms_port_definition (scalar_identifier))
+      (to_tms_port_definition (scalar_identifier))
+      (to_tck_port_definition (scalar_identifier))
+      (clock_port_definition (scalar_identifier))
+      (to_clock_port_definition (scalar_identifier))
+      (trst_port_definition (scalar_identifier))
+      (to_trst_port_definition (scalar_identifier))
+      (to_ir_select_port_definition (scalar_identifier))
+      (address_port_definition (scalar_identifier))
+      (write_enable_port_definition (scalar_identifier))
+      (read_enable_port_definition (scalar_identifier)))))
 
 ==================
-ScanOutPort with Attributes
+Attributes
 ==================
-Module m {
-    ScanOutPort so {
-        Attribute a0;
-        Attribute a1 = 7;
-        Attribute a2 = "baz";
-        Source foo;
-        Enable bar;
-    };
-}
+
+ScanInPort si {}
+ScanInPort si { Attribute foo = 1; }
+ScanInPort si { Attribute foo = "bar"; }
+ScanInPort si { Attribute foo = 1, 2; }
+ScanInPort si { Attribute foo = "bar", "baz"; }
 
 ---
-(source_file
-  (module_definition
-    (scalar_identifier)
-    (module_body
-      (scan_out_port_definition
-        (scalar_identifier)
-        (attribute_definition
-          (scalar_identifier))
-        (attribute_definition
-          (scalar_identifier)
-          (attribute_value
-            (concat_number
-              (unsized_number
-                (positive_integer)))))
-        (attribute_definition
-          (scalar_identifier)
-          (attribute_value
-            (concat_string
-              (string
-                (string_content)))))
-      (scan_out_port_source
-        (scalar_identifier))
-      (scan_out_port_enable
-        (scalar_identifier))))))
 
+(source_file
+  (scan_in_port_definition (scalar_identifier))
+  (scan_in_port_definition (scalar_identifier)
+    (attribute_definition (scalar_identifier)
+      (attribute_value (concat_number (unsized_number (positive_integer))))))
+  (scan_in_port_definition (scalar_identifier)
+    (attribute_definition (scalar_identifier)
+      (attribute_value (concat_string (string (string_content))))))
+  (scan_in_port_definition (scalar_identifier)
+    (attribute_definition (scalar_identifier)
+      (attribute_value (concat_number (unsized_number (positive_integer))
+         (unsized_number (positive_integer))))))
+  (scan_in_port_definition (scalar_identifier)
+    (attribute_definition (scalar_identifier)
+      (attribute_value (concat_string 
+         (string (string_content)) (string (string_content)))))))
 
 

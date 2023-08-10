@@ -1,5 +1,24 @@
 [
   {
+    "type": "address_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute_definition",
     "named": true,
     "fields": {},
@@ -42,9 +61,32 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "clock_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -91,6 +133,44 @@
     }
   },
   {
+    "type": "data_in_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_out_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "escape_sequence",
     "named": true,
     "fields": {}
@@ -119,7 +199,27 @@
       "required": false,
       "types": [
         {
+          "type": "address_port_definition",
+          "named": true
+        },
+        {
           "type": "capture_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "clock_port_definition",
+          "named": true
+        },
+        {
+          "type": "data_in_port_definition",
+          "named": true
+        },
+        {
+          "type": "data_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "read_enable_port_definition",
           "named": true
         },
         {
@@ -135,7 +235,7 @@
           "named": true
         },
         {
-          "type": "select_enable_port_definition",
+          "type": "select_port_definition",
           "named": true
         },
         {
@@ -147,11 +247,63 @@
           "named": true
         },
         {
+          "type": "tms_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_capture_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_clock_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_ir_select_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_reset_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_select_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_shift_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_tck_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_tms_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_trst_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_update_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "trst_port_definition",
+          "named": true
+        },
+        {
           "type": "update_enable_port_definition",
           "named": true
         },
         {
           "type": "use_namespace_definition",
+          "named": true
+        },
+        {
+          "type": "write_enable_port_definition",
           "named": true
         }
       ]
@@ -222,13 +374,36 @@
     }
   },
   {
+    "type": "read_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "reset_port_definition",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -241,9 +416,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -309,13 +488,17 @@
     }
   },
   {
-    "type": "select_enable_port_definition",
+    "type": "select_port_definition",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -328,9 +511,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -446,6 +633,26 @@
       "required": false,
       "types": [
         {
+          "type": "address_port_definition",
+          "named": true
+        },
+        {
+          "type": "capture_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "clock_port_definition",
+          "named": true
+        },
+        {
+          "type": "data_in_port_definition",
+          "named": true
+        },
+        {
+          "type": "data_out_port_definition",
+          "named": true
+        },
+        {
           "type": "module_definition",
           "named": true
         },
@@ -454,7 +661,91 @@
           "named": true
         },
         {
+          "type": "read_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "reset_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_in_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "select_port_definition",
+          "named": true
+        },
+        {
+          "type": "shift_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "tck_port_definition",
+          "named": true
+        },
+        {
+          "type": "tms_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_capture_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_clock_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_ir_select_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_reset_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_select_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_shift_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_tck_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_tms_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_trst_port_definition",
+          "named": true
+        },
+        {
+          "type": "to_update_enable_port_definition",
+          "named": true
+        },
+        {
+          "type": "trst_port_definition",
+          "named": true
+        },
+        {
+          "type": "update_enable_port_definition",
+          "named": true
+        },
+        {
           "type": "use_namespace_definition",
+          "named": true
+        },
+        {
+          "type": "write_enable_port_definition",
           "named": true
         }
       ]
@@ -489,9 +780,241 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tms_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_capture_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_clock_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_ir_select_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_reset_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_select_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_shift_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_tck_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_tms_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_trst_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to_update_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "trst_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -556,9 +1079,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -574,6 +1101,25 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "write_enable_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
         {
           "type": "scalar_identifier",
           "named": true
@@ -618,6 +1164,10 @@
     "named": false
   },
   {
+    "type": "AddressPort",
+    "named": false
+  },
+  {
     "type": "Attribute",
     "named": false
   },
@@ -630,7 +1180,19 @@
     "named": false
   },
   {
+    "type": "ClockPort",
+    "named": false
+  },
+  {
     "type": "D",
+    "named": false
+  },
+  {
+    "type": "DataInPort",
+    "named": false
+  },
+  {
+    "type": "DataOutPort",
     "named": false
   },
   {
@@ -647,6 +1209,10 @@
   },
   {
     "type": "NameSpace",
+    "named": false
+  },
+  {
+    "type": "ReadEnPort",
     "named": false
   },
   {
@@ -678,11 +1244,63 @@
     "named": false
   },
   {
+    "type": "TMSPort",
+    "named": false
+  },
+  {
+    "type": "TRSTPort",
+    "named": false
+  },
+  {
+    "type": "ToCaptureEnPort",
+    "named": false
+  },
+  {
+    "type": "ToClockPort",
+    "named": false
+  },
+  {
+    "type": "ToIRSelectPort",
+    "named": false
+  },
+  {
+    "type": "ToResetPort",
+    "named": false
+  },
+  {
+    "type": "ToSelectPort",
+    "named": false
+  },
+  {
+    "type": "ToShiftEnPort",
+    "named": false
+  },
+  {
+    "type": "ToTCKPort",
+    "named": false
+  },
+  {
+    "type": "ToTMSPort",
+    "named": false
+  },
+  {
+    "type": "ToTRSTPort",
+    "named": false
+  },
+  {
+    "type": "ToUpdateEnPort",
+    "named": false
+  },
+  {
     "type": "UpdateEnPort",
     "named": false
   },
   {
     "type": "UseNameSpace",
+    "named": false
+  },
+  {
+    "type": "WriteEnPort",
     "named": false
   },
   {
