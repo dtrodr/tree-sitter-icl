@@ -45,3 +45,169 @@ Attribute foo = "bar", "baz";
        (string (string_content)) (string (string_content))))))
 
 
+==================
+Integer Expressions
+==================
+Parameter foo = 1;
+Parameter foo = 1 + 1;
+Parameter foo = $FOO - $BAR;
+Parameter foo = 1 + (2 * 3);
+Parameter foo = ($FOO % 7) / 2;
+---
+(source_file
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (unsized_number
+              (positive_integer)))))
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (integer_expression
+              (integer_expression
+                (positive_integer)
+                (positive_integer))))))
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (integer_expression
+              (integer_expression
+                (parameter_reference)
+                (parameter_reference))))))
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (integer_expression
+              (integer_expression
+                (positive_integer)
+                (integer_expression
+                  (integer_expression
+                    (positive_integer)
+                    (positive_integer))))))))
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (integer_expression
+              (integer_expression
+                (integer_expression
+                  (integer_expression
+                    (parameter_reference)
+                    (positive_integer)))
+                (positive_integer)))))))
+
+==================
+Logic Expressions
+==================
+LogicSignal foo { a && b }
+LogicSignal foo { a || b }
+LogicSignal foo { !a }
+LogicSignal foo { ~a }
+LogicSignal foo { a & b }
+LogicSignal foo { a | b }
+LogicSignal foo { a ^ b }
+LogicSignal foo { a == b }
+LogicSignal foo { a != b }
+LogicSignal foo { (a & !b) | c }
+---
+(source_file
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (concat_signal
+              (signal
+                (scalar_identifier))))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (enum_name))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (concat_signal
+              (signal
+                (scalar_identifier)))
+            (enum_name))))
+      (logic_signal_definition
+        (scalar_identifier)
+        (logic_expression
+          (logic_expression
+            (logic_expression
+              (logic_expression
+                (concat_signal
+                  (signal
+                    (scalar_identifier)))
+                (concat_signal
+                  (signal
+                    (scalar_identifier)))))
+            (concat_signal
+              (signal
+                (scalar_identifier)))))))
+

@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "integer_expression",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
           "named": true
         },
@@ -146,6 +150,10 @@
       "required": true,
       "types": [
         {
+          "type": "integer_expression",
+          "named": true
+        },
+        {
           "type": "sized_number",
           "named": true
         },
@@ -180,7 +188,7 @@
       "required": true,
       "types": [
         {
-          "type": "parameter_ref",
+          "type": "parameter_reference",
           "named": true
         },
         {
@@ -253,6 +261,11 @@
     }
   },
   {
+    "type": "enum_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "escape_sequence",
     "named": true,
     "fields": {}
@@ -288,6 +301,94 @@
     }
   },
   {
+    "type": "integer_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "integer_expression",
+          "named": true
+        },
+        {
+          "type": "parameter_reference",
+          "named": true
+        },
+        {
+          "type": "positive_integer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "local_parameter_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "logic_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "concat_number",
+          "named": true
+        },
+        {
+          "type": "concat_signal",
+          "named": true
+        },
+        {
+          "type": "enum_name",
+          "named": true
+        },
+        {
+          "type": "logic_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "logic_signal_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "logic_expression",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "module_body",
     "named": true,
     "fields": {},
@@ -317,6 +418,18 @@
         },
         {
           "type": "data_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "local_parameter_definition",
+          "named": true
+        },
+        {
+          "type": "logic_signal_definition",
+          "named": true
+        },
+        {
+          "type": "parameter_definition",
           "named": true
         },
         {
@@ -445,7 +558,26 @@
     }
   },
   {
-    "type": "parameter_ref",
+    "type": "parameter_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter_value",
     "named": true,
     "fields": {},
     "children": {
@@ -453,7 +585,11 @@
       "required": true,
       "types": [
         {
-          "type": "scalar_identifier",
+          "type": "concat_number",
+          "named": true
+        },
+        {
+          "type": "concat_string",
           "named": true
         }
       ]
@@ -522,6 +658,10 @@
       "required": true,
       "types": [
         {
+          "type": "integer_expression",
+          "named": true
+        },
+        {
           "type": "sized_number",
           "named": true
         },
@@ -540,6 +680,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "integer_expression",
+          "named": true
+        },
         {
           "type": "sized_number",
           "named": true
@@ -575,7 +719,7 @@
       "required": true,
       "types": [
         {
-          "type": "scalar_identifier",
+          "type": "enum_name",
           "named": true
         }
       ]
@@ -660,6 +804,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "scalar_identifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "scan_in_port_definition",
@@ -755,6 +904,10 @@
       "types": [
         {
           "type": "hier_port",
+          "named": true
+        },
+        {
+          "type": "integer_expression",
           "named": true
         },
         {
@@ -908,11 +1061,23 @@
           "named": true
         },
         {
+          "type": "local_parameter_definition",
+          "named": true
+        },
+        {
+          "type": "logic_signal_definition",
+          "named": true
+        },
+        {
           "type": "module_definition",
           "named": true
         },
         {
           "type": "namespace_definition",
+          "named": true
+        },
+        {
+          "type": "parameter_definition",
           "named": true
         },
         {
@@ -1522,6 +1687,14 @@
     "named": false
   },
   {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
     "type": "\"",
     "named": false
   },
@@ -1530,11 +1703,47 @@
     "named": false
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
+    "type": "&",
+    "named": false
+  },
+  {
+    "type": "&&",
+    "named": false
+  },
+  {
     "type": "'",
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "/",
     "named": false
   },
   {
@@ -1555,6 +1764,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "==",
     "named": false
   },
   {
@@ -1618,11 +1831,23 @@
     "named": false
   },
   {
+    "type": "LocalParameter",
+    "named": false
+  },
+  {
+    "type": "LogicSignal",
+    "named": false
+  },
+  {
     "type": "Module",
     "named": false
   },
   {
     "type": "NameSpace",
+    "named": false
+  },
+  {
+    "type": "Parameter",
     "named": false
   },
   {
@@ -1738,6 +1963,10 @@
     "named": false
   },
   {
+    "type": "^",
+    "named": false
+  },
+  {
     "type": "b",
     "named": false
   },
@@ -1750,11 +1979,11 @@
     "named": false
   },
   {
-    "type": "positive_integer",
+    "type": "parameter_reference",
     "named": true
   },
   {
-    "type": "scalar_identifier",
+    "type": "positive_integer",
     "named": true
   },
   {
@@ -1763,6 +1992,14 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
+    "named": false
+  },
+  {
+    "type": "||",
     "named": false
   },
   {

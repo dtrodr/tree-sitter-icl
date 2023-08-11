@@ -5,7 +5,9 @@ module.exports = grammar({
         source_file: $ => repeat(choice(
             $._icl_source_items,
             // Illegal by the spec but makes the testing much simpler
-            $._module_statement
+            $._module_statement,
+            // $.integer_expression,
+            // $.logic_expression,
         )),
 
         _icl_source_items: $ => choice(
@@ -40,20 +42,20 @@ module.exports = grammar({
             $.use_namespace_definition,
             $._port_definition,
             // $.instance_definition,
-            // $.scanRegister_definition,
-            // $.dataRegister_definition,
-            // $.logicSignal_definition,
-            // $.scanMux_definition,
-            // $.dataMux_definition,
-            // $.clockMux_definition,
-            // $.oneHotDataGroup_definition,
-            // $.oneHotScanGroup_definition,
-            // $.scanInterface_definition,
-            // $.accessLink_definition,
+            // $.scan_register_definition,
+            // $.data_register_definition,
+            $.logic_signal_definition,
+            // $.scan_mux_definition,
+            // $.data_mux_definition,
+            // $.clock_mux_definition,
+            // $.onehot_data_group_definition,
+            // $.onehot_scan_group_definition,
+            // $.scan_interface_definition,
+            // $.access_link_definition,
             // $.alias_definition,
             // $.enum_definition,
-            // $.parameter_definition,
-            // $.localParameter_definition,
+            $.parameter_definition,
+            $.local_parameter_definition,
             $.attribute_definition,
         ),
 
@@ -63,8 +65,10 @@ module.exports = grammar({
             $.scalar_identifier,
             '[', choice($.index, $.range), ']'
         ),
+        enum_name: $ => /[a-zA-Z][a-zA-Z0-9_$]*/,
+        //enum_name: $ => alias($.scalar_identifier, $.enum_name),
 
-        index: $ => $.positive_integer, // TODO replace with integer_expr
+        index: $ => $.positive_integer, // TODO replace with integer_expression
         range: $ => seq($.index, ':', $.index),
 
         _port_definition: $ => choice(
@@ -231,7 +235,7 @@ module.exports = grammar({
             'Enable', $.signal, ';'
         ),
         port_refenum: $ => seq(
-            'RefEnum', $.scalar_identifier, ';'
+            'RefEnum', $.enum_name, ';'
         ),
         port_default_load_value: $ => seq(
             'DefaultLoadValue',
@@ -403,8 +407,25 @@ module.exports = grammar({
             optional(seq('=', $.attribute_value)),
             ';'
         ),
-
         attribute_value: $ => choice(
+            $.concat_number,
+            $.concat_string
+        ),
+
+        logic_signal_definition: $ => seq(
+            'LogicSignal', $.scalar_identifier,
+            '{', $.logic_expression, '}',
+        ),
+
+        parameter_definition: $ => seq(
+            'Parameter', $.scalar_identifier,
+            '=', $.parameter_value, ';'
+        ),
+        local_parameter_definition: $ => seq(
+            'LocalParameter', $.scalar_identifier,
+            '=', $.parameter_value, ';'
+        ),
+        parameter_value: $ => choice(
             $.concat_number,
             $.concat_string
         ),
@@ -420,10 +441,11 @@ module.exports = grammar({
         signal: $ => seq(optional('~'), $._signal),
         jtag_signal: $ => alias($._signal, $._jtag_signal),
 
-        concat_signal: $ => seq(
+        concat_signal: $ => prec.left(seq(
             $.signal,
             repeat(seq(',', $.signal))
-        ),
+        )),
+
         _signal_identifier: $ => choice(
             $.scalar_identifier,
             $.vector_identifier
@@ -442,10 +464,11 @@ module.exports = grammar({
             )),
         ),
 
-        _number: $ => choice(
+        _number: $ => prec.left(choice(
             $.unsized_number,
             $.sized_number,
-            //TODO: integer_expr
+            $.integer_expression
+        )
         ),
 
         time: $ => token(seq(
@@ -459,7 +482,7 @@ module.exports = grammar({
         ),
 
         unsized_number: $ => choice(
-            $.positive_integer,
+            prec(1, $.positive_integer),
             $.unsized_decimal_number,
             $.unsized_binary_number,
             $.unsized_hex_number
@@ -487,8 +510,8 @@ module.exports = grammar({
         sized_hex_number: $ => seq($.size, $.unsized_hex_number),
 
         concat_string: $ => seq(
-            choice($.string, $.parameter_ref),
-            repeat(seq(',', choice($.string, $.parameter_ref))),
+            prec(1, choice($.string, $.parameter_reference)),
+            repeat(seq(',', choice($.string, $.parameter_reference))),
         ),
 
         string: $ => seq(
@@ -504,7 +527,8 @@ module.exports = grammar({
 
         escape_sequence: $ => seq('\\',choice('\\', '"')),
 
-        parameter_ref: $ => seq('$', $.scalar_identifier),
+        //parameter_reference: $ => token.immediate(seq('$', /[a-zA-Z][a-zA-Z0-9_$]*/)),
+        parameter_reference: $ => /\$[a-zA-Z][a-zA-Z0-9_$]*/,
 
         // from: https://github.com/tree-sitter/tree-sitter-c/blob/master/grammar.js
         comment: $ => token(choice(
@@ -516,5 +540,100 @@ module.exports = grammar({
             )
         )),
 
-    }
+        // === Logic Expression ===
+        // Following the IEEE spec
+        integer_expression: $ => alias($._integer_expression_lvl1, $.integer_expression),
+
+        _integer_expression_lvl1: $ => prec.left(seq(
+            $._integer_expression_lvl2,
+            repeat(seq(
+                choice('+', '-'),
+                $._integer_expression_lvl1
+            ))
+        )),
+        _integer_expression_lvl2: $ => prec.left(seq(
+            $._integer_expression_arg,
+            repeat(seq(
+                choice('*', '/', '%'),
+                $._integer_expression_lvl2
+            ))
+        )),
+        _integer_expression_paren: $ => seq(
+            '(',
+            $.integer_expression,
+            ')'
+        ),
+        _integer_expression_arg: $ => prec.left(choice(
+            $._integer_expression_paren,
+            $.positive_integer,
+            $.parameter_reference
+        )),
+
+        // === Logic Expression ===
+        // Following the IEEE spec
+        logic_expression : $ => alias($._logic_expression_lvl1, $.logic_expression),
+        _logic_expression_lvl1 : $ => seq(
+            $._logic_expression_lvl2,
+            optional(seq(
+                choice('&&', '||'),
+                $._logic_expression_lvl1
+            ))
+        ),
+        _logic_expression_lvl2 : $ => seq(
+            $._logic_expression_lvl3,
+            optional(seq(
+                choice('&', '|', '^'),
+                $._logic_expression_lvl2
+            ))
+        ),
+        _logic_expression_lvl3 : $ => seq(
+            $._logic_expression_lvl4,
+            optional(seq(
+                choice('==', '!='),
+                $._logic_expression_num_arg
+            ))
+        ),
+        _logic_expression_lvl4 : $ => seq(
+            $._logic_expression_arg,
+            optional(seq(
+                ',',
+                $._logic_expression_lvl4
+            ))
+        ),
+        _logic_unary_expression : $ => seq(
+            prec(1, choice('~', '!')),
+            $._logic_expression_arg
+        ),
+        _logic_expression_paren : $ => seq(
+            '(',
+            $.logic_expression,
+            ')'
+        ),
+        _logic_expression_arg : $ => choice(
+            $._logic_expression_paren,
+            $._logic_unary_expression,
+            $.concat_signal
+        ),
+        _logic_expression_num_arg : $ => choice(
+            $.concat_number,
+            $.enum_name,
+            seq(
+                '(',
+                $._logic_expression_num_arg,
+                ')'
+            )
+        ),
+
+    },
+    
+    conflicts: $ => [
+        // ??? :(
+        [$.signal],
+        [$._integer_expression_lvl1],
+        [$._integer_expression_lvl2],
+        // FIXME
+        [$.concat_string, $._integer_expression_arg],
+
+    ],
+
 });
