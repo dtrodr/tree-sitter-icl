@@ -1,0 +1,47 @@
+==================
+Namespaces
+==================
+NameSpace A;
+UseNameSpace B;
+NameSpace;
+UseNameSpace;
+---
+(source_file
+  (namespace_definition (scalar_identifier))
+  (use_namespace_definition (scalar_identifier))
+  (namespace_definition)
+  (use_namespace_definition))
+
+==================
+Simple Module
+==================
+Module foo { }
+---
+(source_file
+  (module_definition
+    (scalar_identifier)
+    (module_body)))
+
+==================
+Attributes
+==================
+Attribute foo;
+Attribute foo = 1;
+Attribute foo = "bar";
+Attribute foo = 1, 2;
+Attribute foo = "bar", "baz";
+---
+(source_file
+  (attribute_definition (scalar_identifier))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_number (unsized_number (positive_integer)))))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_string (string (string_content)))))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_number (unsized_number (positive_integer))
+       (unsized_number (positive_integer)))))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_string
+       (string (string_content)) (string (string_content))))))
+
+

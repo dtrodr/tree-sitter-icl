@@ -135,6 +135,10 @@
         {
           "type": "SYMBOL",
           "name": "_port_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
         }
       ]
     },
@@ -541,7 +545,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_reset_port_item"
                   }
                 },
                 {
@@ -647,20 +651,259 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scan_out_port_source"
+          "name": "port_source"
         },
         {
           "type": "SYMBOL",
-          "name": "scan_out_port_enable"
+          "name": "port_enable"
         }
       ]
     },
-    "scan_out_port_source": {
+    "_data_in_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_refenum"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_default_load_value"
+        }
+      ]
+    },
+    "_data_out_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_enable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_refenum"
+        }
+      ]
+    },
+    "_reset_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_active_polarity"
+        }
+      ]
+    },
+    "_trst_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_clock_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_differential_inv_of"
+        }
+      ]
+    },
+    "_to_shift_enable_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_capture_enable_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_update_enable_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_select_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_reset_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_active_polarity"
+        }
+      ]
+    },
+    "_to_tms_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_trst_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_clock_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_freq_multiplier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_freq_divider"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_differential_inv_of"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_period"
+        }
+      ]
+    },
+    "port_source": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
           "value": "Source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_enable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Enable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_refenum": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "RefEnum"
         },
         {
           "type": "SYMBOL",
@@ -672,16 +915,119 @@
         }
       ]
     },
-    "scan_out_port_enable": {
+    "port_default_load_value": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "Enable"
+          "value": "DefaultLoadValue"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "concat_number"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "scalar_identifier"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_differential_inv_of": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DifferentialInvOf"
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_active_polarity": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ActivePolarity"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "0"
+            },
+            {
+              "type": "STRING",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_freq_multiplier": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FreqMultiplier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_freq_divider": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FreqDivider"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "port_period": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Period"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "time"
         },
         {
           "type": "STRING",
@@ -698,7 +1044,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -718,7 +1064,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_data_in_port_item"
                   }
                 },
                 {
@@ -760,7 +1106,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_data_out_port_item"
                   }
                 },
                 {
@@ -782,7 +1128,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -802,7 +1148,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_shift_enable_port_item"
                   }
                 },
                 {
@@ -824,7 +1170,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -844,7 +1190,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_update_enable_port_item"
                   }
                 },
                 {
@@ -866,7 +1212,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -886,7 +1232,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_capture_enable_port_item"
                   }
                 },
                 {
@@ -908,7 +1254,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -928,7 +1274,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_select_port_item"
                   }
                 },
                 {
@@ -950,7 +1296,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -970,7 +1316,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_reset_port_item"
                   }
                 },
                 {
@@ -992,7 +1338,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1034,7 +1380,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1054,7 +1400,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_tms_port_item"
                   }
                 },
                 {
@@ -1076,7 +1422,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1118,7 +1464,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1138,7 +1484,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_clock_port_item"
                   }
                 },
                 {
@@ -1160,7 +1506,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1180,7 +1526,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_clock_port_item"
                   }
                 },
                 {
@@ -1202,7 +1548,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1222,7 +1568,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_trst_port_item"
                   }
                 },
                 {
@@ -1244,7 +1590,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1264,7 +1610,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_trst_port_item"
                   }
                 },
                 {
@@ -1286,7 +1632,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1328,7 +1674,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1370,7 +1716,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1412,7 +1758,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -1500,9 +1846,106 @@
       "type": "PATTERN",
       "value": "[0-9][0-9_]*"
     },
-    "signal": {
+    "_signal": {
       "type": "CHOICE",
-      "members": []
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_signal_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hier_port"
+        }
+      ]
+    },
+    "signal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "~"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_signal"
+        }
+      ]
+    },
+    "jtag_signal": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_signal"
+      },
+      "named": true,
+      "value": "_jtag_signal"
+    },
+    "concat_signal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "signal"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "signal"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_signal_identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vector_identifier"
+        }
+      ]
+    },
+    "hier_port": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "scalar_identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        }
+      ]
     },
     "concat_number": {
       "type": "SEQ",
@@ -1565,6 +2008,59 @@
           "name": "sized_number"
         }
       ]
+    },
+    "time": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[0-9][0-9_]*"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "s"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "ms"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "us"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "ns"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "ps"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "fs"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "as"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "size": {
       "type": "CHOICE",

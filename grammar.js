@@ -26,7 +26,7 @@ module.exports = grammar({
         ),
 
         module_definition: $ => seq(
-            'Module', 
+            'Module',
             $.scalar_identifier,
             $.module_body
         ),
@@ -39,6 +39,22 @@ module.exports = grammar({
         _module_statement: $ => choice(
             $.use_namespace_definition,
             $._port_definition,
+            // $.instance_definition,
+            // $.scanRegister_definition,
+            // $.dataRegister_definition,
+            // $.logicSignal_definition,
+            // $.scanMux_definition,
+            // $.dataMux_definition,
+            // $.clockMux_definition,
+            // $.oneHotDataGroup_definition,
+            // $.oneHotScanGroup_definition,
+            // $.scanInterface_definition,
+            // $.accessLink_definition,
+            // $.alias_definition,
+            // $.enum_definition,
+            // $.parameter_definition,
+            // $.localParameter_definition,
+            $.attribute_definition,
         ),
 
         // must start with letter - then underscore and digits allowed
@@ -51,7 +67,6 @@ module.exports = grammar({
         index: $ => $.positive_integer, // TODO replace with integer_expr
         range: $ => seq($.index, ':', $.index),
 
-
         _port_definition: $ => choice(
             $.scan_in_port_definition,
             $.capture_enable_port_definition,
@@ -61,7 +76,6 @@ module.exports = grammar({
             $.reset_port_definition,
             $.tck_port_definition,
             $.scan_out_port_definition,
-            // TODO: Impl
             $.data_in_port_definition,
             $.data_out_port_definition,
             $.to_shift_enable_port_definition,
@@ -121,7 +135,7 @@ module.exports = grammar({
             'ResetPort', $.scalar_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}')
+                seq('{', repeat($._reset_port_item), '}')
             ),
         ),
         tck_port_definition: $ => seq(
@@ -141,24 +155,111 @@ module.exports = grammar({
 
         _scan_out_port_item: $ => choice(
             $.attribute_definition,
-            $.scan_out_port_source,
-            $.scan_out_port_enable
+            $.port_source,
+            $.port_enable
+        ),
+        _data_in_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_refenum,
+            $.port_default_load_value,
+        ),
+        _data_out_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+            $.port_enable,
+            $.port_refenum,
+        ),
+        _reset_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+            $.port_active_polarity,
+        ),
+        _trst_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _clock_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_differential_inv_of
+        ),
+        _trst_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_shift_enable_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_capture_enable_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_update_enable_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_select_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_reset_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+            $.port_active_polarity,
+        ),
+        _to_tms_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_trst_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_clock_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+            $.port_freq_multiplier,
+            $.port_freq_divider,
+            $.port_differential_inv_of,
+            $.port_period
         ),
 
-        scan_out_port_source: $ => seq(
-            //TODO: signal/concat signal
-            'Source', $.scalar_identifier, ';'
+        port_source: $ => seq(
+            'Source', $.concat_signal, ';'
         ),
-        scan_out_port_enable: $ => seq(
-            //TODO: signal/concat signal
-            'Enable', $.scalar_identifier, ';'
+        port_enable: $ => seq(
+            'Enable', $.signal, ';'
         ),
+        port_refenum: $ => seq(
+            'RefEnum', $.scalar_identifier, ';'
+        ),
+        port_default_load_value: $ => seq(
+            'DefaultLoadValue',
+            choice($.concat_number, $.scalar_identifier),
+            ';'
+        ),
+        port_differential_inv_of: $ => seq(
+            'DifferentialInvOf', $.signal, ';'
+        ),
+        port_active_polarity: $ => seq(
+            'ActivePolarity', choice('0', '1'), ';'
+        ),
+        port_freq_multiplier: $ => seq(
+            'FreqMultiplier', $._number, ';'
+        ),
+        port_freq_divider: $ => seq(
+            'FreqDivider', $._number, ';'
+        ),
+        port_period: $ => seq(
+            'Period', $.time, ';'
+        ),
+
 
         data_in_port_definition: $ => seq(
-            'DataInPort', $.scalar_identifier,
+            'DataInPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._data_in_port_item), '}'),
             ),
         ),
 
@@ -166,52 +267,51 @@ module.exports = grammar({
             'DataOutPort', $.scalar_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._data_out_port_item), '}'),
             ),
         ),
         to_shift_enable_port_definition: $ => seq(
-            'ToShiftEnPort', $.scalar_identifier,
+            'ToShiftEnPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_shift_enable_port_item), '}'),
             ),
         ),
 
         to_update_enable_port_definition: $ => seq(
-            'ToUpdateEnPort', $.scalar_identifier,
+            'ToUpdateEnPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_update_enable_port_item), '}'),
             ),
         ),
 
         to_capture_enable_port_definition: $ => seq(
-            'ToCaptureEnPort', $.scalar_identifier,
+            'ToCaptureEnPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_capture_enable_port_item), '}'),
             ),
         ),
 
-
         to_select_port_definition: $ => seq(
-            'ToSelectPort', $.scalar_identifier,
+            'ToSelectPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_select_port_item), '}'),
             ),
         ),
 
         to_reset_port_definition: $ => seq(
-            'ToResetPort', $.scalar_identifier,
+            'ToResetPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_reset_port_item), '}'),
             ),
         ),
 
         tms_port_definition: $ => seq(
-            'TMSPort', $.scalar_identifier,
+            'TMSPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($.attribute_definition), '}'),
@@ -219,15 +319,15 @@ module.exports = grammar({
         ),
 
         to_tms_port_definition: $ => seq(
-            'ToTMSPort', $.scalar_identifier,
+            'ToTMSPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_tms_port_item), '}'),
             ),
         ),
 
         to_tck_port_definition: $ => seq(
-            'ToTCKPort', $.scalar_identifier,
+            'ToTCKPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($.attribute_definition), '}'),
@@ -235,39 +335,39 @@ module.exports = grammar({
         ),
 
         clock_port_definition: $ => seq(
-            'ClockPort', $.scalar_identifier,
+            'ClockPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._clock_port_item), '}'),
             ),
         ),
 
         to_clock_port_definition: $ => seq(
-            'ToClockPort', $.scalar_identifier,
+            'ToClockPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_clock_port_item), '}'),
             ),
         ),
 
         trst_port_definition: $ => seq(
-            'TRSTPort', $.scalar_identifier,
+            'TRSTPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._trst_port_item), '}'),
             ),
         ),
 
         to_trst_port_definition: $ => seq(
-            'ToTRSTPort', $.scalar_identifier,
+            'ToTRSTPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_trst_port_item), '}'),
             ),
         ),
 
         to_ir_select_port_definition: $ => seq(
-            'ToIRSelectPort', $.scalar_identifier,
+            'ToIRSelectPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($.attribute_definition), '}'),
@@ -275,7 +375,7 @@ module.exports = grammar({
         ),
 
         address_port_definition: $ => seq(
-            'AddressPort', $.scalar_identifier,
+            'AddressPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($.attribute_definition), '}'),
@@ -283,7 +383,7 @@ module.exports = grammar({
         ),
 
         write_enable_port_definition: $ => seq(
-            'WriteEnPort', $.scalar_identifier,
+            'WriteEnPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($.attribute_definition), '}'),
@@ -291,7 +391,7 @@ module.exports = grammar({
         ),
 
         read_enable_port_definition: $ => seq(
-            'ReadEnPort', $.scalar_identifier,
+            'ReadEnPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($.attribute_definition), '}'),
@@ -311,10 +411,26 @@ module.exports = grammar({
 
         positive_integer: $ => /[0-9][0-9_]*/,
 
-        signal: $ => choice(
-            // $.number,
-            // $.reg_port_signal_id,
-            // $.hier_port
+        _signal: $ => choice(
+            $._number,
+            $._signal_identifier,
+            $.hier_port
+        ),
+
+        signal: $ => seq(optional('~'), $._signal),
+        jtag_signal: $ => alias($._signal, $._jtag_signal),
+
+        concat_signal: $ => seq(
+            $.signal,
+            repeat(seq(',', $.signal))
+        ),
+        _signal_identifier: $ => choice(
+            $.scalar_identifier,
+            $.vector_identifier
+        ),
+        hier_port: $ => seq(
+            repeat1($.scalar_identifier),
+            $.scalar_identifier
         ),
         concat_number: $ => seq(
             optional('~'),
@@ -331,6 +447,11 @@ module.exports = grammar({
             $.sized_number,
             //TODO: integer_expr
         ),
+
+        time: $ => token(seq(
+            /[0-9][0-9_]*/,
+            optional(choice('s', 'ms', 'us', 'ns', 'ps', 'fs', 'as'))
+        )),
 
         size: $ => choice(
             $.positive_integer,
@@ -391,9 +512,9 @@ module.exports = grammar({
             seq(
                 '/*',
                 /[^*]*\*+([^/*][^*]*\*+)*/,
-                    '/'
-                )
-            )),
+                '/'
+            )
+        )),
 
     }
 });

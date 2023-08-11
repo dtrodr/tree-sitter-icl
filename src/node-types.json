@@ -1,5 +1,36 @@
 [
   {
+    "type": "_jtag_signal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "hier_port",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "sized_number",
+          "named": true
+        },
+        {
+          "type": "unsized_number",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "address_port_definition",
     "named": true,
     "fields": {},
@@ -13,6 +44,10 @@
         },
         {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -88,7 +123,15 @@
           "named": true
         },
         {
+          "type": "port_differential_inv_of",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -108,6 +151,21 @@
         },
         {
           "type": "unsized_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "concat_signal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "signal",
           "named": true
         }
       ]
@@ -145,7 +203,19 @@
           "named": true
         },
         {
+          "type": "port_default_load_value",
+          "named": true
+        },
+        {
+          "type": "port_refenum",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -164,6 +234,18 @@
           "named": true
         },
         {
+          "type": "port_enable",
+          "named": true
+        },
+        {
+          "type": "port_refenum",
+          "named": true
+        },
+        {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
           "named": true
         }
@@ -174,6 +256,21 @@
     "type": "escape_sequence",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "hier_port",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "index",
@@ -200,6 +297,10 @@
       "types": [
         {
           "type": "address_port_definition",
+          "named": true
+        },
+        {
+          "type": "attribute_definition",
           "named": true
         },
         {
@@ -359,6 +460,143 @@
     }
   },
   {
+    "type": "port_active_polarity",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "port_default_load_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_differential_inv_of",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_enable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_freq_divider",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sized_number",
+          "named": true
+        },
+        {
+          "type": "unsized_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_freq_multiplier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sized_number",
+          "named": true
+        },
+        {
+          "type": "unsized_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_period",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "time",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_refenum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_source",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "range",
     "named": true,
     "fields": {},
@@ -388,6 +626,10 @@
         {
           "type": "scalar_identifier",
           "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
         }
       ]
     }
@@ -402,6 +644,14 @@
       "types": [
         {
           "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "port_active_polarity",
+          "named": true
+        },
+        {
+          "type": "port_source",
           "named": true
         },
         {
@@ -443,43 +693,13 @@
           "named": true
         },
         {
-          "type": "scalar_identifier",
+          "type": "port_enable",
           "named": true
         },
         {
-          "type": "scan_out_port_enable",
+          "type": "port_source",
           "named": true
         },
-        {
-          "type": "scan_out_port_source",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "scan_out_port_enable",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "scalar_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "scan_out_port_source",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
         {
           "type": "scalar_identifier",
           "named": true
@@ -520,6 +740,37 @@
         },
         {
           "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "hier_port",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "sized_number",
+          "named": true
+        },
+        {
+          "type": "unsized_number",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -634,6 +885,10 @@
       "types": [
         {
           "type": "address_port_definition",
+          "named": true
+        },
+        {
+          "type": "attribute_definition",
           "named": true
         },
         {
@@ -809,6 +1064,10 @@
         {
           "type": "scalar_identifier",
           "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
         }
       ]
     }
@@ -826,7 +1085,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -845,7 +1112,31 @@
           "named": true
         },
         {
+          "type": "port_differential_inv_of",
+          "named": true
+        },
+        {
+          "type": "port_freq_divider",
+          "named": true
+        },
+        {
+          "type": "port_freq_multiplier",
+          "named": true
+        },
+        {
+          "type": "port_period",
+          "named": true
+        },
+        {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -866,6 +1157,10 @@
         {
           "type": "scalar_identifier",
           "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
         }
       ]
     }
@@ -883,7 +1178,19 @@
           "named": true
         },
         {
+          "type": "port_active_polarity",
+          "named": true
+        },
+        {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -902,7 +1209,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -921,7 +1236,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -942,6 +1265,10 @@
         {
           "type": "scalar_identifier",
           "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
         }
       ]
     }
@@ -959,7 +1286,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -978,7 +1313,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -997,7 +1340,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -1016,7 +1367,15 @@
           "named": true
         },
         {
+          "type": "port_source",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -1109,6 +1468,29 @@
     }
   },
   {
+    "type": "vector_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "index",
+          "named": true
+        },
+        {
+          "type": "range",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "write_enable_port_definition",
     "named": true,
     "fields": {},
@@ -1122,6 +1504,10 @@
         },
         {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -1152,6 +1538,14 @@
     "named": false
   },
   {
+    "type": "0",
+    "named": false
+  },
+  {
+    "type": "1",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -1161,6 +1555,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "ActivePolarity",
     "named": false
   },
   {
@@ -1196,7 +1594,23 @@
     "named": false
   },
   {
+    "type": "DefaultLoadValue",
+    "named": false
+  },
+  {
+    "type": "DifferentialInvOf",
+    "named": false
+  },
+  {
     "type": "Enable",
+    "named": false
+  },
+  {
+    "type": "FreqDivider",
+    "named": false
+  },
+  {
+    "type": "FreqMultiplier",
     "named": false
   },
   {
@@ -1212,7 +1626,15 @@
     "named": false
   },
   {
+    "type": "Period",
+    "named": false
+  },
+  {
     "type": "ReadEnPort",
+    "named": false
+  },
+  {
+    "type": "RefEnum",
     "named": false
   },
   {
@@ -1333,6 +1755,10 @@
   },
   {
     "type": "scalar_identifier",
+    "named": true
+  },
+  {
+    "type": "time",
     "named": true
   },
   {
