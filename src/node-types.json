@@ -1,40 +1,5 @@
 [
   {
-    "type": "_jtag_signal",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "hier_port",
-          "named": true
-        },
-        {
-          "type": "integer_expression",
-          "named": true
-        },
-        {
-          "type": "scalar_identifier",
-          "named": true
-        },
-        {
-          "type": "sized_number",
-          "named": true
-        },
-        {
-          "type": "unsized_number",
-          "named": true
-        },
-        {
-          "type": "vector_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "address_port_definition",
     "named": true,
     "fields": {},
@@ -52,6 +17,21 @@
         },
         {
           "type": "vector_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "allow_broadcast_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
           "named": true
         }
       ]
@@ -115,6 +95,25 @@
     }
   },
   {
+    "type": "capture_source",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "clock_port_definition",
     "named": true,
     "fields": {},
@@ -154,11 +153,31 @@
           "named": true
         },
         {
-          "type": "sized_number",
+          "type": "positive_integer",
           "named": true
         },
         {
-          "type": "unsized_number",
+          "type": "sized_binary_number",
+          "named": true
+        },
+        {
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
           "named": true
         }
       ]
@@ -215,7 +234,7 @@
           "named": true
         },
         {
-          "type": "port_refenum",
+          "type": "ref_enum",
           "named": true
         },
         {
@@ -246,11 +265,30 @@
           "named": true
         },
         {
-          "type": "port_refenum",
+          "type": "port_source",
           "named": true
         },
         {
-          "type": "port_source",
+          "type": "ref_enum",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "default_load_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
           "named": true
         },
         {
@@ -301,6 +339,107 @@
     }
   },
   {
+    "type": "input_port_connection",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instance_address_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "integer_expression",
+          "named": true
+        },
+        {
+          "type": "positive_integer",
+          "named": true
+        },
+        {
+          "type": "sized_binary_number",
+          "named": true
+        },
+        {
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instance_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "allow_broadcast_definition",
+          "named": true
+        },
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "input_port_connection",
+          "named": true
+        },
+        {
+          "type": "instance_address_value",
+          "named": true
+        },
+        {
+          "type": "parameter_override",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "scope",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "integer_expression",
     "named": true,
     "fields": {},
@@ -318,6 +457,61 @@
         },
         {
           "type": "positive_integer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "jtag_signal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "hier_port",
+          "named": true
+        },
+        {
+          "type": "integer_expression",
+          "named": true
+        },
+        {
+          "type": "positive_integer",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "sized_binary_number",
+          "named": true
+        },
+        {
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -421,6 +615,10 @@
           "named": true
         },
         {
+          "type": "instance_definition",
+          "named": true
+        },
+        {
           "type": "local_parameter_definition",
           "named": true
         },
@@ -446,6 +644,10 @@
         },
         {
           "type": "scan_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_register_definition",
           "named": true
         },
         {
@@ -577,6 +779,25 @@
     }
   },
   {
+    "type": "parameter_override",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter_value",
     "named": true,
     "fields": {},
@@ -662,11 +883,31 @@
           "named": true
         },
         {
-          "type": "sized_number",
+          "type": "positive_integer",
           "named": true
         },
         {
-          "type": "unsized_number",
+          "type": "sized_binary_number",
+          "named": true
+        },
+        {
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
           "named": true
         }
       ]
@@ -685,11 +926,31 @@
           "named": true
         },
         {
-          "type": "sized_number",
+          "type": "positive_integer",
           "named": true
         },
         {
-          "type": "unsized_number",
+          "type": "sized_binary_number",
+          "named": true
+        },
+        {
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
           "named": true
         }
       ]
@@ -705,21 +966,6 @@
       "types": [
         {
           "type": "time",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "port_refenum",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "enum_name",
           "named": true
         }
       ]
@@ -779,6 +1025,21 @@
     }
   },
   {
+    "type": "ref_enum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "reset_port_definition",
     "named": true,
     "fields": {},
@@ -796,6 +1057,25 @@
         },
         {
           "type": "port_source",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "reset_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
           "named": true
         },
         {
@@ -830,6 +1110,21 @@
     }
   },
   {
+    "type": "scan_in_source",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "scan_out_port_definition",
     "named": true,
     "fields": {},
@@ -849,6 +1144,60 @@
           "type": "port_source",
           "named": true
         },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_register_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "capture_source",
+          "named": true
+        },
+        {
+          "type": "default_load_value",
+          "named": true
+        },
+        {
+          "type": "ref_enum",
+          "named": true
+        },
+        {
+          "type": "reset_value",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "scan_in_source",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scope",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
           "type": "scalar_identifier",
           "named": true
@@ -911,15 +1260,35 @@
           "named": true
         },
         {
+          "type": "positive_integer",
+          "named": true
+        },
+        {
           "type": "scalar_identifier",
           "named": true
         },
         {
-          "type": "sized_number",
+          "type": "sized_binary_number",
           "named": true
         },
         {
-          "type": "unsized_number",
+          "type": "sized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "sized_hex_number",
+          "named": true
+        },
+        {
+          "type": "unsized_binary_number",
+          "named": true
+        },
+        {
+          "type": "unsized_decimal_number",
+          "named": true
+        },
+        {
+          "type": "unsized_hex_number",
           "named": true
         },
         {
@@ -1006,29 +1375,6 @@
     }
   },
   {
-    "type": "sized_number",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "sized_binary_number",
-          "named": true
-        },
-        {
-          "type": "sized_decimal_number",
-          "named": true
-        },
-        {
-          "type": "sized_hex_number",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -1058,6 +1404,10 @@
         },
         {
           "type": "data_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "instance_definition",
           "named": true
         },
         {
@@ -1094,6 +1444,10 @@
         },
         {
           "type": "scan_out_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_register_definition",
           "named": true
         },
         {
@@ -1572,33 +1926,6 @@
     "fields": {}
   },
   {
-    "type": "unsized_number",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "positive_integer",
-          "named": true
-        },
-        {
-          "type": "unsized_binary_number",
-          "named": true
-        },
-        {
-          "type": "unsized_decimal_number",
-          "named": true
-        },
-        {
-          "type": "unsized_hex_number",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "update_enable_port_definition",
     "named": true,
     "fields": {},
@@ -1759,6 +2086,10 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -1779,6 +2110,14 @@
     "named": false
   },
   {
+    "type": "AddressValue",
+    "named": false
+  },
+  {
+    "type": "AllowBroadcastOnScanInterface",
+    "named": false
+  },
+  {
     "type": "Attribute",
     "named": false
   },
@@ -1788,6 +2127,10 @@
   },
   {
     "type": "CaptureEnPort",
+    "named": false
+  },
+  {
+    "type": "CaptureSource",
     "named": false
   },
   {
@@ -1831,6 +2174,14 @@
     "named": false
   },
   {
+    "type": "InputPort",
+    "named": false
+  },
+  {
+    "type": "Instance",
+    "named": false
+  },
+  {
     "type": "LocalParameter",
     "named": false
   },
@@ -1844,6 +2195,10 @@
   },
   {
     "type": "NameSpace",
+    "named": false
+  },
+  {
+    "type": "Of",
     "named": false
   },
   {
@@ -1867,11 +2222,23 @@
     "named": false
   },
   {
+    "type": "ResetValue",
+    "named": false
+  },
+  {
     "type": "ScanInPort",
     "named": false
   },
   {
+    "type": "ScanInSource",
+    "named": false
+  },
+  {
     "type": "ScanOutPort",
+    "named": false
+  },
+  {
+    "type": "ScanRegister",
     "named": false
   },
   {

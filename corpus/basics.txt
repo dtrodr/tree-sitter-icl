@@ -13,7 +13,7 @@ UseNameSpace;
   (use_namespace_definition))
 
 ==================
-Simple Module
+Empty Module
 ==================
 Module foo { }
 ---
@@ -23,7 +23,7 @@ Module foo { }
     (module_body)))
 
 ==================
-Attributes
+Attributes declarations
 ==================
 Attribute foo;
 Attribute foo = 1;
@@ -34,12 +34,11 @@ Attribute foo = "bar", "baz";
 (source_file
   (attribute_definition (scalar_identifier))
   (attribute_definition (scalar_identifier)
-    (attribute_value (concat_number (unsized_number (positive_integer)))))
+    (attribute_value (concat_number (positive_integer))))
   (attribute_definition (scalar_identifier)
     (attribute_value (concat_string (string (string_content)))))
   (attribute_definition (scalar_identifier)
-    (attribute_value (concat_number (unsized_number (positive_integer))
-       (unsized_number (positive_integer)))))
+    (attribute_value (concat_number (positive_integer) (positive_integer))))
   (attribute_definition (scalar_identifier)
     (attribute_value (concat_string
        (string (string_content)) (string (string_content))))))
@@ -59,8 +58,7 @@ Parameter foo = ($FOO % 7) / 2;
         (scalar_identifier)
         (parameter_value
           (concat_number
-            (unsized_number
-              (positive_integer)))))
+            (positive_integer))))
       (parameter_definition
         (scalar_identifier)
         (parameter_value

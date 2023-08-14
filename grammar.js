@@ -6,8 +6,6 @@ module.exports = grammar({
             $._icl_source_items,
             // Illegal by the spec but makes the testing much simpler
             $._module_statement,
-            // $.integer_expression,
-            // $.logic_expression,
         )),
 
         _icl_source_items: $ => choice(
@@ -41,8 +39,8 @@ module.exports = grammar({
         _module_statement: $ => choice(
             $.use_namespace_definition,
             $._port_definition,
-            // $.instance_definition,
-            // $.scan_register_definition,
+            $.instance_definition,
+            $.scan_register_definition,
             // $.data_register_definition,
             $.logic_signal_definition,
             // $.scan_mux_definition,
@@ -57,6 +55,62 @@ module.exports = grammar({
             $.parameter_definition,
             $.local_parameter_definition,
             $.attribute_definition,
+        ),
+
+        scope: $ => seq($.scalar_identifier, '::'),
+
+        instance_definition: $ => seq(
+            'Instance', $.scalar_identifier, 'Of',
+            optional($.scope),
+            $.scalar_identifier,
+            choice(
+                ';',
+                seq('{', repeat($._instance_item), '}')
+            ),
+        ),
+        _instance_item: $ => choice(
+            $.input_port_connection,
+            $.allow_broadcast_definition,
+            $.attribute_definition,
+            alias($.parameter_definition,$.parameter_override),
+            $.instance_address_value,
+        ),
+        input_port_connection: $ => seq(
+            'InputPort', $.scalar_identifier, '=', $.concat_signal, ';'
+        ),
+        allow_broadcast_definition: $ => seq(
+            'AllowBroadcastOnScanInterface', $.scalar_identifier, ';'
+        ),
+        instance_address_value: $ => seq(
+            'AddressValue', $._number, ';'
+        ),
+
+        scan_register_definition: $ => seq(
+            'ScanRegister', $.scalar_identifier,
+            choice(
+                ';',
+                seq('{', repeat($._scan_register_item), '}')
+            ),
+        ),
+        _scan_register_item: $ => choice(
+            $.attribute_definition,
+            $.scan_in_source,
+            $.default_load_value,
+            $.capture_source,
+            $.reset_value,
+            $.ref_enum,
+        ),
+        scan_in_source: $ => seq(
+            'ScanInSource', $.concat_signal, ';'
+        ),
+        default_load_value: $ => seq(
+            'DefaultLoadValue', choice($.concat_number, $.scalar_identifier), ';'
+        ),
+        capture_source: $ => seq(
+            'CaptureSource', choice($.concat_signal, $.scalar_identifier), ';'
+        ),
+        reset_value: $ => seq(
+            'ResetValue', choice($.concat_number, $.scalar_identifier), ';'
         ),
 
         // must start with letter - then underscore and digits allowed
@@ -164,14 +218,14 @@ module.exports = grammar({
         ),
         _data_in_port_item: $ => choice(
             $.attribute_definition,
-            $.port_refenum,
+            $.ref_enum,
             $.port_default_load_value,
         ),
         _data_out_port_item: $ => choice(
             $.attribute_definition,
             $.port_source,
             $.port_enable,
-            $.port_refenum,
+            $.ref_enum,
         ),
         _reset_port_item: $ => choice(
             $.attribute_definition,
@@ -234,7 +288,7 @@ module.exports = grammar({
         port_enable: $ => seq(
             'Enable', $.signal, ';'
         ),
-        port_refenum: $ => seq(
+        ref_enum: $ => seq(
             'RefEnum', $.enum_name, ';'
         ),
         port_default_load_value: $ => seq(
@@ -432,24 +486,26 @@ module.exports = grammar({
 
         positive_integer: $ => /[0-9][0-9_]*/,
 
-        _signal: $ => choice(
+        signal: $ => choice(
             $._number,
             $._signal_identifier,
             $.hier_port
         ),
 
-        signal: $ => seq(optional('~'), $._signal),
-        jtag_signal: $ => alias($._signal, $._jtag_signal),
+        //signal: $ => alias($._signal, $.signal),
+        //signal: $ => seq(optional('~'), $._signal),
+        //jtag_signal: $ => alias($._signal, $._jtag_signal),
+        jtag_signal: $ => alias($.signal, $.jtag_signal),
 
         concat_signal: $ => prec.left(seq(
             $.signal,
             repeat(seq(',', $.signal))
         )),
 
-        _signal_identifier: $ => choice(
+        _signal_identifier: $ => prec.left(choice(
             $.scalar_identifier,
             $.vector_identifier
-        ),
+        )),
         hier_port: $ => seq(
             repeat1($.scalar_identifier),
             $.scalar_identifier
@@ -465,11 +521,10 @@ module.exports = grammar({
         ),
 
         _number: $ => prec.left(choice(
-            $.unsized_number,
-            $.sized_number,
+            $._unsized_number,
+            $._sized_number,
             $.integer_expression
-        )
-        ),
+        )),
 
         time: $ => token(seq(
             /[0-9][0-9_]*/,
@@ -481,13 +536,13 @@ module.exports = grammar({
             seq('$', $.scalar_identifier)
         ),
 
-        unsized_number: $ => choice(
-            prec(1, $.positive_integer),
+        _unsized_number: $ => choice(
+            prec(2, $.positive_integer),
             $.unsized_decimal_number,
             $.unsized_binary_number,
             $.unsized_hex_number
         ),
-        sized_number: $ => choice(
+        _sized_number: $ => choice(
             $.sized_decimal_number,
             $.sized_binary_number,
             $.sized_hex_number
@@ -563,7 +618,7 @@ module.exports = grammar({
             $.integer_expression,
             ')'
         ),
-        _integer_expression_arg: $ => prec.left(choice(
+        _integer_expression_arg: $ => prec.left(1, choice(
             $._integer_expression_paren,
             $.positive_integer,
             $.parameter_reference
@@ -627,12 +682,9 @@ module.exports = grammar({
     },
     
     conflicts: $ => [
-        // ??? :(
-        [$.signal],
-        [$._integer_expression_lvl1],
-        [$._integer_expression_lvl2],
-        // FIXME
-        [$.concat_string, $._integer_expression_arg],
+        // Resolves conflict between the unary ~ operator and
+        // the ability of signals to 
+        //[$.signal],
 
     ],
 

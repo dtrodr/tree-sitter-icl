@@ -1,0 +1,51 @@
+==================
+Instance
+==================
+Module foo {
+    Instance bar Of baz;
+    Instance bar Of scope::baz;
+    Instance bar Of baz {
+        Attribute grault;
+        InputPort qux = 1;
+        AllowBroadcastOnScanInterface quux;
+        Parameter corge = 1;
+        AddressValue 1;
+    }
+}
+---
+(source_file
+ (module_definition (scalar_identifier)
+  (module_body
+   (instance_definition (scalar_identifier) (scalar_identifier))
+   (instance_definition (scalar_identifier) (scope (scalar_identifier)) (scalar_identifier))
+   (instance_definition (scalar_identifier) (scalar_identifier)
+    (attribute_definition (scalar_identifier))
+    (input_port_connection (scalar_identifier) (concat_signal (signal (positive_integer))))
+    (allow_broadcast_definition (scalar_identifier))
+    (parameter_override (scalar_identifier) (parameter_value (concat_number (positive_integer))))
+    (instance_address_value (positive_integer))))))
+
+==================
+ScanRegister
+==================
+Module foo {
+    ScanRegister bar;
+    ScanRegister bar {
+        Attribute qux;
+        ScanInSource quux;
+        DefaultLoadValue 1;
+        CaptureSource 1;
+        ResetValue 1;
+    }
+}
+---
+    (source_file
+      (module_definition (scalar_identifier)
+        (module_body
+          (scan_register_definition (scalar_identifier))
+          (scan_register_definition (scalar_identifier)
+            (attribute_definition (scalar_identifier))
+            (scan_in_source (concat_signal (signal (scalar_identifier))))
+            (default_load_value (concat_number (positive_integer)))
+            (capture_source (concat_signal (signal (positive_integer))))
+            (reset_value (concat_number (positive_integer)))))))
