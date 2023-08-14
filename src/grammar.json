@@ -146,7 +146,23 @@
         },
         {
           "type": "SYMBOL",
+          "name": "data_register_definition"
+        },
+        {
+          "type": "SYMBOL",
           "name": "logic_signal_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scan_mux_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_mux_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "clock_mux_definition"
         },
         {
           "type": "SYMBOL",
@@ -163,17 +179,56 @@
       ]
     },
     "scope": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "scalar_identifier"
-        },
-        {
-          "type": "STRING",
-          "value": "::"
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "scalar_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parameter_reference"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "::"
+          }
+        ]
+      }
+    },
+    "sub_scope": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "::"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "scalar_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parameter_reference"
+              }
+            ]
+          }
+        ]
+      }
     },
     "instance_definition": {
       "type": "SEQ",
@@ -263,7 +318,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "instance_address_value"
+          "name": "address_value"
         }
       ]
     },
@@ -309,7 +364,7 @@
         }
       ]
     },
-    "instance_address_value": {
+    "address_value": {
       "type": "SEQ",
       "members": [
         {
@@ -489,6 +544,337 @@
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "data_register_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DataRegister"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "{"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_data_register_item"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_data_register_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_data_register_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_data_register_common"
+        }
+      ]
+    },
+    "_data_register_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "selectable"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "address_value"
+          },
+          "named": true,
+          "value": "addressable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "read_callback"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "write_callback"
+        }
+      ]
+    },
+    "_data_register_common": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "reset_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "default_load_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ref_enum"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        }
+      ]
+    },
+    "selectable": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "write_en_source"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "write_data_source"
+        }
+      ]
+    },
+    "write_en_source": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "WriteEnSource"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "~"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "write_data_source": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "WriteDataSource"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "read_callback": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "read_callback_proc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "read_data_source"
+        }
+      ]
+    },
+    "read_callback_proc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ReadCallBack"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_proc_namespace"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_proc_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "i_proc_args"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "read_data_source": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ReadDataSource"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "write_callback": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "WriteCallBack"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_proc_namespace"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_proc_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "i_proc_args"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "i_proc_namespace": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "scope"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "scalar_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parameter_reference"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sub_scope"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "i_proc_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parameter_reference"
+        }
+      ]
+    },
+    "i_proc_args": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<D>"
+        },
+        {
+          "type": "STRING",
+          "value": "<R>"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parameter_reference"
         }
       ]
     },
@@ -2284,6 +2670,135 @@
         }
       ]
     },
+    "mux_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "concat_number_list"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "scan_mux_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ScanMux"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "SelectedBy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "mux_body"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "data_mux_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DataMux"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "SelectedBy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "mux_body"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "clock_mux_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ClockMux"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scalar_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "SelectedBy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concat_signal"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "mux_body"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
     "positive_integer": {
       "type": "PATTERN",
       "value": "[0-9][0-9_]*"
@@ -2424,6 +2939,35 @@
           }
         }
       ]
+    },
+    "concat_number_list": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "concat_number"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "|"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "concat_number"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "_number": {
       "type": "PREC_LEFT",

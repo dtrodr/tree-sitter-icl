@@ -41,11 +41,11 @@ module.exports = grammar({
             $._port_definition,
             $.instance_definition,
             $.scan_register_definition,
-            // $.data_register_definition,
+            $.data_register_definition,
             $.logic_signal_definition,
-            // $.scan_mux_definition,
-            // $.data_mux_definition,
-            // $.clock_mux_definition,
+            $.scan_mux_definition,
+            $.data_mux_definition,
+            $.clock_mux_definition,
             // $.onehot_data_group_definition,
             // $.onehot_scan_group_definition,
             // $.scan_interface_definition,
@@ -57,7 +57,8 @@ module.exports = grammar({
             $.attribute_definition,
         ),
 
-        scope: $ => seq($.scalar_identifier, '::'),
+        scope: $ => prec.left(seq(choice($.scalar_identifier, $.parameter_reference), '::')),
+        sub_scope: $ => prec.left(seq('::', choice($.scalar_identifier, $.parameter_reference))),
 
         instance_definition: $ => seq(
             'Instance', $.scalar_identifier, 'Of',
@@ -73,7 +74,7 @@ module.exports = grammar({
             $.allow_broadcast_definition,
             $.attribute_definition,
             alias($.parameter_definition,$.parameter_override),
-            $.instance_address_value,
+            $.address_value,
         ),
         input_port_connection: $ => seq(
             'InputPort', $.scalar_identifier, '=', $.concat_signal, ';'
@@ -81,7 +82,7 @@ module.exports = grammar({
         allow_broadcast_definition: $ => seq(
             'AllowBroadcastOnScanInterface', $.scalar_identifier, ';'
         ),
-        instance_address_value: $ => seq(
+        address_value: $ => seq(
             'AddressValue', $._number, ';'
         ),
 
@@ -112,6 +113,68 @@ module.exports = grammar({
         reset_value: $ => seq(
             'ResetValue', choice($.concat_number, $.scalar_identifier), ';'
         ),
+
+        data_register_definition: $ => seq(
+            'DataRegister', $.scalar_identifier,
+            choice(
+                ';',
+                seq('{', repeat($._data_register_item), '}')
+            ),
+        ),
+        _data_register_item: $ => choice(
+            $._data_register_type,
+            $._data_register_common,
+        ),
+        _data_register_type: $ => choice(
+            $.selectable,
+            alias($.address_value, $.addressable),
+            $.read_callback,
+            $.write_callback,
+        ),
+        _data_register_common: $ => choice(
+            $.reset_value,
+            $.default_load_value,
+            $.ref_enum,
+            $.attribute_definition,
+        ),
+        selectable: $ => choice(
+            $.write_en_source,
+            $.write_data_source,
+        ),
+
+        write_en_source: $ => seq(
+            'WriteEnSource', optional('~'), $.signal, ';'
+        ),
+        write_data_source: $ => seq(
+            'WriteDataSource', $.concat_signal, ';'
+        ),
+        read_callback: $ => choice(
+            $.read_callback_proc,
+            $.read_data_source,
+        ),
+        read_callback_proc: $ => seq(
+            'ReadCallBack', $.i_proc_namespace, $.i_proc_name, repeat($.i_proc_args), ';'
+        ),
+        read_data_source: $ => seq(
+            'ReadDataSource', $.concat_signal, ';'
+        ),
+        write_callback: $ => seq(
+            'WriteCallBack', $.i_proc_namespace, $.i_proc_name, repeat($.i_proc_args), ';'
+        ),
+        i_proc_namespace: $ => prec.left(seq(
+            optional($.scope), choice($.scalar_identifier, $.parameter_reference), optional($.sub_scope)
+        )),
+        i_proc_name: $ => choice($.scalar_identifier, $.parameter_reference),
+        i_proc_args: $ => choice(
+            '<D>',
+            '<R>',
+            $._number,
+            $.string,
+            $.parameter_reference,
+        ),
+
+
+        
 
         // must start with letter - then underscore and digits allowed
         scalar_identifier: $ => /[a-zA-Z][a-zA-Z0-9_$]*/,
@@ -484,6 +547,22 @@ module.exports = grammar({
             $.concat_string
         ),
 
+        mux_body: $ => seq(
+            $.concat_number_list, ':', $.concat_signal, ';'
+        ),
+        scan_mux_definition: $ => seq(
+            'ScanMux', $.scalar_identifier, 'SelectedBy', $.concat_signal,
+            '{', repeat($.mux_body), '}',
+        ),
+        data_mux_definition: $ => seq(
+            'DataMux', $.scalar_identifier, 'SelectedBy', $.concat_signal,
+            '{', repeat($.mux_body), '}',
+        ),
+        clock_mux_definition: $ => seq(
+            'ClockMux', $.scalar_identifier, 'SelectedBy', $.concat_signal,
+            '{', repeat($.mux_body), '}',
+        ),
+
         positive_integer: $ => /[0-9][0-9_]*/,
 
         signal: $ => choice(
@@ -519,6 +598,12 @@ module.exports = grammar({
                 $._number
             )),
         ),
+
+        concat_number_list: $ => prec.left(seq(
+            $.concat_number,
+            repeat(seq('|', $.concat_number))
+        )),
+
 
         _number: $ => prec.left(choice(
             $._unsized_number,
@@ -680,12 +765,8 @@ module.exports = grammar({
         ),
 
     },
-    
-    conflicts: $ => [
-        // Resolves conflict between the unary ~ operator and
-        // the ability of signals to 
-        //[$.signal],
 
+    conflicts: $ => [
     ],
 
 });

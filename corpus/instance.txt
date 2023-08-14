@@ -1,51 +1,75 @@
 ==================
 Instance
 ==================
-Module foo {
-    Instance bar Of baz;
-    Instance bar Of scope::baz;
-    Instance bar Of baz {
-        Attribute grault;
-        InputPort qux = 1;
-        AllowBroadcastOnScanInterface quux;
-        Parameter corge = 1;
-        AddressValue 1;
-    }
+Instance bar Of baz;
+Instance bar Of scope::baz;
+Instance bar Of baz {
+    Attribute grault;
+    InputPort qux = 1;
+    AllowBroadcastOnScanInterface quux;
+    Parameter corge = 1;
+    AddressValue 1;
 }
 ---
 (source_file
- (module_definition (scalar_identifier)
-  (module_body
-   (instance_definition (scalar_identifier) (scalar_identifier))
-   (instance_definition (scalar_identifier) (scope (scalar_identifier)) (scalar_identifier))
-   (instance_definition (scalar_identifier) (scalar_identifier)
-    (attribute_definition (scalar_identifier))
-    (input_port_connection (scalar_identifier) (concat_signal (signal (positive_integer))))
-    (allow_broadcast_definition (scalar_identifier))
-    (parameter_override (scalar_identifier) (parameter_value (concat_number (positive_integer))))
-    (instance_address_value (positive_integer))))))
+    (instance_definition (scalar_identifier) (scalar_identifier))
+    (instance_definition (scalar_identifier) (scope (scalar_identifier)) (scalar_identifier))
+    (instance_definition (scalar_identifier) (scalar_identifier)
+        (attribute_definition (scalar_identifier))
+        (input_port_connection (scalar_identifier) (concat_signal (signal (positive_integer))))
+        (allow_broadcast_definition (scalar_identifier))
+        (parameter_override (scalar_identifier) (parameter_value (concat_number (positive_integer))))
+        (address_value (positive_integer))))
 
 ==================
-ScanRegister
+Scan Register
 ==================
-Module foo {
-    ScanRegister bar;
-    ScanRegister bar {
-        Attribute qux;
-        ScanInSource quux;
-        DefaultLoadValue 1;
-        CaptureSource 1;
-        ResetValue 1;
-    }
+ScanRegister bar;
+ScanRegister bar {
+    Attribute qux;
+    ScanInSource quux;
+    DefaultLoadValue 1;
+    CaptureSource 1;
+    ResetValue 1;
 }
 ---
-    (source_file
-      (module_definition (scalar_identifier)
-        (module_body
-          (scan_register_definition (scalar_identifier))
-          (scan_register_definition (scalar_identifier)
-            (attribute_definition (scalar_identifier))
-            (scan_in_source (concat_signal (signal (scalar_identifier))))
-            (default_load_value (concat_number (positive_integer)))
-            (capture_source (concat_signal (signal (positive_integer))))
-            (reset_value (concat_number (positive_integer)))))))
+(source_file
+    (scan_register_definition (scalar_identifier))
+    (scan_register_definition (scalar_identifier)
+        (attribute_definition (scalar_identifier))
+        (scan_in_source (concat_signal (signal (scalar_identifier))))
+        (default_load_value (concat_number (positive_integer)))
+        (capture_source (concat_signal (signal (positive_integer))))
+        (reset_value (concat_number (positive_integer)))))
+
+==================
+Data Register
+==================
+DataRegister bar {
+    Attribute bar;
+    ResetValue 1;
+    DefaultLoadValue 1;
+    RefEnum enum_name;
+    WriteDataSource qux;
+    WriteEnSource quux;
+    AddressValue 1;
+    WriteCallBack some_scope::some_proc some_args;
+    ReadCallBack some_scope::some_proc some_args;
+    ReadDataSource corge;
+}
+---
+(source_file
+    (data_register_definition (scalar_identifier)
+        (attribute_definition (scalar_identifier))
+        (reset_value (concat_number (positive_integer)))
+        (default_load_value (concat_number (positive_integer)))
+        (ref_enum (enum_name))
+        (selectable (write_data_source (concat_signal (signal (scalar_identifier)))))
+        (selectable (write_en_source (signal (scalar_identifier))))
+        (addressable (positive_integer))
+        (write_callback (i_proc_namespace (scope (scalar_identifier))
+            (scalar_identifier)) (i_proc_name (scalar_identifier)))
+        (read_callback (read_callback_proc (i_proc_namespace (scope (scalar_identifier))
+            (scalar_identifier)) (i_proc_name (scalar_identifier))))
+        (read_callback (read_data_source (concat_signal (signal (scalar_identifier)))))))
+        
