@@ -10,7 +10,9 @@ ScanMux foo SelectedBy sel[1:0] {
 (source_file
     (scan_mux_definition (scalar_identifier)
     (concat_signal (signal (vector_identifier (scalar_identifier)
-        (range (index (positive_integer)) (index (positive_integer))))))
+        (range
+            (index (integer_expression (positive_integer)))
+            (index (integer_expression (positive_integer)))))))
     (mux_body (concat_number_list
         (concat_number (sized_binary_number
             (size (positive_integer)) (unsized_binary_number))))
@@ -35,7 +37,9 @@ DataMux foo SelectedBy sel[1:0] {
 (source_file
     (data_mux_definition (scalar_identifier)
     (concat_signal (signal (vector_identifier (scalar_identifier)
-        (range (index (positive_integer)) (index (positive_integer))))))
+        (range 
+            (index (integer_expression (positive_integer)))
+            (index (integer_expression (positive_integer)))))))
     (mux_body (concat_number_list
         (concat_number (sized_binary_number
             (size (positive_integer)) (unsized_binary_number))))
@@ -60,7 +64,9 @@ ClockMux foo SelectedBy sel[1:0] {
 (source_file
     (clock_mux_definition (scalar_identifier)
     (concat_signal (signal (vector_identifier (scalar_identifier)
-        (range (index (positive_integer)) (index (positive_integer))))))
+        (range 
+            (index (integer_expression (positive_integer)))
+            (index (integer_expression (positive_integer)))))))
     (mux_body (concat_number_list
         (concat_number (sized_binary_number
             (size (positive_integer)) (unsized_binary_number))))

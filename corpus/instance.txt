@@ -1,4 +1,25 @@
 ==================
+Attributes declarations
+==================
+Attribute foo;
+Attribute foo = 1;
+Attribute foo = "bar";
+Attribute foo = 1, 2;
+Attribute foo = "bar", "baz";
+---
+(source_file
+  (attribute_definition (scalar_identifier))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_number (positive_integer))))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_string (string (string_content)))))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_number (positive_integer) (positive_integer))))
+  (attribute_definition (scalar_identifier)
+    (attribute_value (concat_string
+       (string (string_content)) (string (string_content))))))
+
+==================
 Instance
 ==================
 Instance bar Of baz;
@@ -72,4 +93,162 @@ DataRegister bar {
         (read_callback (read_callback_proc (i_proc_namespace (scope (scalar_identifier))
             (scalar_identifier)) (i_proc_name (scalar_identifier))))
         (read_callback (read_data_source (concat_signal (signal (scalar_identifier)))))))
-        
+
+==================
+One Hot
+==================
+OneHotScanGroup foo { Port bar; }
+OneHotDataGroup foo { Port bar; }
+OneHotDataGroup foo {
+    Port bar;
+    DataRegister baz;
+    Instance qux Of quux;
+}
+---
+(source_file
+  (onehot_scan_group_definition
+    (scalar_identifier)
+    (onehot_scan_group_item
+      (concat_signal
+        (signal
+          (scalar_identifier)))))
+  (onehot_data_group_definition
+    (scalar_identifier)
+    (onehot_data_group_port_source
+      (concat_signal
+        (signal
+          (scalar_identifier)))))
+  (onehot_data_group_definition
+    (scalar_identifier)
+    (onehot_data_group_port_source
+      (concat_signal
+        (signal
+          (scalar_identifier))))
+    (data_register_definition
+      (scalar_identifier))
+    (instance_definition
+      (scalar_identifier)
+      (scalar_identifier))))
+
+==================
+Scan Interface
+==================
+ScanInterface foo {
+    Attribute bar;
+    Port baz;
+    DefaultLoadValue 1;
+    Chain qux {
+        Attribute qux_foo;
+        Port qux_bar;
+        DefaultLoadValue 1;
+    }
+}
+---
+(source_file
+  (scan_interface_definition
+    (scalar_identifier)
+    (attribute_definition
+      (scalar_identifier))
+    (scan_interface_port_definition
+      (concat_signal
+        (signal
+          (scalar_identifier))))
+    (default_load_definition
+      (concat_number
+        (positive_integer)))
+    (scan_interface_chain_definition
+      (scalar_identifier)
+      (attribute_definition
+        (scalar_identifier))
+      (scan_interface_port_definition
+        (concat_signal
+          (signal
+            (scalar_identifier))))
+      (default_load_definition
+        (concat_number
+          (positive_integer))))))
+
+==================
+Access Link
+==================
+AccessLink foo Of bar { "Generic Text" }
+AccessLink foo Of STD_1149_1_2001 {
+    BSDLEntity bar;
+    ijtag_en {
+        ScanInterface { qux.quux; }
+        ActiveSignals { corge; }
+    }
+}
+---
+(source_file
+  (access_generic_link_definition
+    (scalar_identifier)
+    (scalar_identifier)
+    (string
+      (string_content)))
+  (access_link_1149_definition
+    (scalar_identifier)
+    (bsdl_entity
+      (scalar_identifier))
+    (bsdl_instruction_reference
+      (scalar_identifier)
+      (bsdl_instruction_selected_item
+        (access_link_1149_scan_interface_name
+          (scalar_identifier)
+          (signal
+            (scalar_identifier))))
+      (bsdl_instruction_selected_item
+        (access_link_1149_active_signal_name
+          (scalar_identifier))))))
+
+==================
+Alias
+==================
+Alias foo = bar;
+Alias foo = bar {
+    Attribute baz;
+    AccessTogether;
+    iApplyEndState 1;
+    RefEnum qux;
+}
+---
+(source_file
+  (alias_definition
+    (scalar_identifier)
+    (concat_hier_data_signal
+      (hier_data_signal
+        (scalar_identifier))))
+  (alias_definition
+    (scalar_identifier)
+    (concat_hier_data_signal
+      (hier_data_signal
+        (scalar_identifier)))
+    (alias_item
+      (attribute_definition
+        (scalar_identifier)))
+    (alias_item)
+    (alias_item
+      (alias_iApplyEndState
+        (concat_number
+          (positive_integer))))
+    (alias_item
+      (alias_refEnum
+        (enum_name)))))
+
+==================
+Enum
+==================
+Enum foo { bar = 1; baz = 2; }
+---
+(source_file
+  (enum_definition
+    (enum_name)
+    (enum_item
+      (scalar_identifier)
+      (concat_number
+        (positive_integer)))
+    (enum_item
+      (scalar_identifier)
+      (concat_number
+        (positive_integer)))))
+

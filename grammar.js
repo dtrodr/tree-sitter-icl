@@ -46,12 +46,12 @@ module.exports = grammar({
             $.scan_mux_definition,
             $.data_mux_definition,
             $.clock_mux_definition,
-            // $.onehot_data_group_definition,
-            // $.onehot_scan_group_definition,
-            // $.scan_interface_definition,
-            // $.access_link_definition,
-            // $.alias_definition,
-            // $.enum_definition,
+            $.onehot_data_group_definition,
+            $.onehot_scan_group_definition,
+            $.scan_interface_definition,
+            $._access_link_definition,
+            $.alias_definition,
+            $.enum_definition,
             $.parameter_definition,
             $.local_parameter_definition,
             $.attribute_definition,
@@ -185,7 +185,15 @@ module.exports = grammar({
         enum_name: $ => /[a-zA-Z][a-zA-Z0-9_$]*/,
         //enum_name: $ => alias($.scalar_identifier, $.enum_name),
 
-        index: $ => $.positive_integer, // TODO replace with integer_expression
+        enum_definition: $ => seq(
+            'Enum', $.enum_name, '{', repeat($.enum_item), '}'
+        ),
+        enum_item: $ => seq(
+            $.scalar_identifier, '=', $.concat_number, ';'
+        ),
+
+
+        index: $ => $.integer_expression,
         range: $ => seq($.index, ':', $.index),
 
         _port_definition: $ => choice(
@@ -530,7 +538,7 @@ module.exports = grammar({
         ),
 
         logic_signal_definition: $ => seq(
-            'LogicSignal', $.scalar_identifier,
+            'LogicSignal', $._signal_identifier,
             '{', $.logic_expression, '}',
         ),
 
@@ -563,6 +571,118 @@ module.exports = grammar({
             '{', repeat($.mux_body), '}',
         ),
 
+        onehot_scan_group_definition: $ => seq(
+            'OneHotScanGroup', $.scalar_identifier,
+            '{', repeat($.onehot_scan_group_item), '}',
+        ),
+        onehot_scan_group_item: $ => seq(
+            'Port', $.concat_signal, ';'
+        ),
+        onehot_data_group_definition: $ => seq(
+            'OneHotDataGroup', $.scalar_identifier,
+            '{', repeat($._onehot_data_group_item), '}',
+        ),
+        _onehot_data_group_item: $ => choice(
+            $.instance_definition,
+            $.data_register_definition,
+            $.onehot_data_group_port_source
+        ),
+        onehot_data_group_port_source: $ => seq(
+            'Port', $.concat_signal, ';'
+        ),
+
+        scan_interface_definition: $ => seq(
+            'ScanInterface', $.scalar_identifier,
+            '{', repeat($._scan_interface_item), '}',
+        ),
+        _scan_interface_item: $ => choice(
+            $.attribute_definition,
+            $.scan_interface_port_definition,
+            $.default_load_definition,
+            $.scan_interface_chain_definition
+        ),
+        scan_interface_port_definition: $ => seq(
+            'Port', $.concat_signal, ';'
+        ),
+        scan_interface_chain_definition: $ => seq(
+            'Chain', $.scalar_identifier,
+            '{', repeat($._scan_interface_chain_item), '}',
+        ),
+        _scan_interface_chain_item: $ => choice(
+            $.attribute_definition,
+            $.scan_interface_port_definition,
+            $.default_load_definition
+        ),
+        default_load_definition: $ => seq(
+            'DefaultLoadValue', $.concat_number, ';'
+        ),
+
+        _access_link_definition: $ => choice(
+            $.access_link_1149_definition,
+            $.access_generic_link_definition,
+        ),
+        access_link_1149_definition: $ => seq(
+            'AccessLink', $.scalar_identifier, 'Of',
+            choice(
+                'STD_1149_1_2001',
+                'STD_1149_1_2013'
+            ),
+            '{',
+            $.bsdl_entity,
+            repeat($.bsdl_instruction_reference),
+            '}',
+        ),
+        bsdl_entity: $ => seq(
+            'BSDLEntity', $.scalar_identifier, ';',
+        ),
+        bsdl_instruction_reference: $ => seq(
+            $.scalar_identifier, '{', repeat1($.bsdl_instruction_selected_item), '}',
+        ),
+        bsdl_instruction_selected_item: $ => choice(
+            seq('ScanInterface', '{', repeat1($.access_link_1149_scan_interface_name), '}',),
+            seq('ActiveSignals', '{', repeat1($.access_link_1149_active_signal_name), '}',),
+        ),
+        access_link_1149_scan_interface_name: $ => seq(
+            $.scalar_identifier, optional(seq('.', $.signal)), ';'
+        ),
+        access_link_1149_active_signal_name: $ => seq(
+            $._signal_identifier, ';'
+        ),
+
+        access_generic_link_definition: $ => seq(
+            'AccessLink', $.scalar_identifier, 'Of', $.scalar_identifier,
+            '{', repeat($._access_generic_link_item), '}',
+        ),
+        _access_generic_link_item: $ => choice(
+            // Is this legal?
+            seq('{',$._access_generic_link_item,'}'),
+            $.access_generic_link_text,
+            $.string
+        ),
+        access_generic_link_text: $ => /[^\{\}\"\t\n\r ]+/,
+
+        alias_definition: $ => seq(
+            'Alias', $._signal_identifier, '=', $.concat_hier_data_signal,
+            choice(
+                ';',
+                seq('{', repeat($.alias_item), '}')
+            ),
+        ),
+        alias_item: $ => choice(
+            $.attribute_definition,
+            seq('AccessTogether', ';'),
+            $.alias_iApplyEndState,
+            $.alias_refEnum
+        ),
+        alias_iApplyEndState: $ => seq(
+            'iApplyEndState', $.concat_number, ';'
+        ),
+        alias_refEnum: $ => seq(
+            'RefEnum', $.enum_name, ';'
+        ),
+
+
+
         positive_integer: $ => /[0-9][0-9_]*/,
 
         signal: $ => choice(
@@ -586,8 +706,8 @@ module.exports = grammar({
             $.vector_identifier
         )),
         hier_port: $ => seq(
-            repeat1($.scalar_identifier),
-            $.scalar_identifier
+            repeat1(seq($.scalar_identifier, '.')),
+            $._signal_identifier
         ),
         concat_number: $ => seq(
             optional('~'),
@@ -604,6 +724,20 @@ module.exports = grammar({
             repeat(seq('|', $.concat_number))
         )),
 
+        concat_hier_data_signal: $ => prec.left(seq(
+            optional('~'),
+            $.hier_data_signal,
+            repeat(seq(
+                ',',
+                optional('~'),
+                $.hier_data_signal
+            )),
+        )),
+
+        hier_data_signal: $ => seq(
+            repeat(seq($.scalar_identifier, '.')),
+            $._signal_identifier,
+        ),
 
         _number: $ => prec.left(choice(
             $._unsized_number,
@@ -682,7 +816,8 @@ module.exports = grammar({
 
         // === Logic Expression ===
         // Following the IEEE spec
-        integer_expression: $ => alias($._integer_expression_lvl1, $.integer_expression),
+        //integer_expression: $ => alias($._integer_expression_lvl1, $.integer_expression),
+        integer_expression: $ => $._integer_expression_lvl1,
 
         _integer_expression_lvl1: $ => prec.left(seq(
             $._integer_expression_lvl2,

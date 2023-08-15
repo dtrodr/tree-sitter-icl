@@ -1,5 +1,89 @@
 [
   {
+    "type": "access_generic_link_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access_generic_link_text",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "access_link_1149_active_signal_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "access_link_1149_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bsdl_entity",
+          "named": true
+        },
+        {
+          "type": "bsdl_instruction_reference",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "access_link_1149_scan_interface_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "address_port_definition",
     "named": true,
     "fields": {},
@@ -109,6 +193,86 @@
     }
   },
   {
+    "type": "alias_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_item",
+          "named": true
+        },
+        {
+          "type": "concat_hier_data_signal",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias_iApplyEndState",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "alias_iApplyEndState",
+          "named": true
+        },
+        {
+          "type": "alias_refEnum",
+          "named": true
+        },
+        {
+          "type": "attribute_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias_refEnum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "allow_broadcast_definition",
     "named": true,
     "fields": {},
@@ -156,6 +320,59 @@
         },
         {
           "type": "concat_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bsdl_entity",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bsdl_instruction_reference",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bsdl_instruction_selected_item",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bsdl_instruction_selected_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access_link_1149_active_signal_name",
+          "named": true
+        },
+        {
+          "type": "access_link_1149_scan_interface_name",
           "named": true
         }
       ]
@@ -244,6 +461,21 @@
         },
         {
           "type": "vector_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "concat_hier_data_signal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hier_data_signal",
           "named": true
         }
       ]
@@ -474,11 +706,64 @@
     }
   },
   {
+    "type": "default_load_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "default_load_value",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_number",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_item",
+          "named": true
+        },
+        {
+          "type": "enum_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -503,6 +788,25 @@
     "fields": {}
   },
   {
+    "type": "hier_data_signal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "hier_port",
     "named": true,
     "fields": {},
@@ -512,6 +816,10 @@
       "types": [
         {
           "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "vector_identifier",
           "named": true
         }
       ]
@@ -623,7 +931,7 @@
       "required": true,
       "types": [
         {
-          "type": "positive_integer",
+          "type": "integer_expression",
           "named": true
         }
       ]
@@ -826,6 +1134,10 @@
         {
           "type": "scalar_identifier",
           "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
         }
       ]
     }
@@ -839,7 +1151,19 @@
       "required": false,
       "types": [
         {
+          "type": "access_generic_link_definition",
+          "named": true
+        },
+        {
+          "type": "access_link_1149_definition",
+          "named": true
+        },
+        {
           "type": "address_port_definition",
+          "named": true
+        },
+        {
+          "type": "alias_definition",
           "named": true
         },
         {
@@ -875,6 +1199,10 @@
           "named": true
         },
         {
+          "type": "enum_definition",
+          "named": true
+        },
+        {
           "type": "instance_definition",
           "named": true
         },
@@ -884,6 +1212,14 @@
         },
         {
           "type": "logic_signal_definition",
+          "named": true
+        },
+        {
+          "type": "onehot_data_group_definition",
+          "named": true
+        },
+        {
+          "type": "onehot_scan_group_definition",
           "named": true
         },
         {
@@ -900,6 +1236,10 @@
         },
         {
           "type": "scan_in_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_interface_definition",
           "named": true
         },
         {
@@ -1037,6 +1377,82 @@
       "types": [
         {
           "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "onehot_data_group_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_register_definition",
+          "named": true
+        },
+        {
+          "type": "instance_definition",
+          "named": true
+        },
+        {
+          "type": "onehot_data_group_port_source",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "onehot_data_group_port_source",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "onehot_scan_group_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "onehot_scan_group_item",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "onehot_scan_group_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
           "named": true
         }
       ]
@@ -1465,6 +1881,79 @@
     }
   },
   {
+    "type": "scan_interface_chain_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "default_load_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "scan_interface_port_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_interface_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_definition",
+          "named": true
+        },
+        {
+          "type": "default_load_definition",
+          "named": true
+        },
+        {
+          "type": "scalar_identifier",
+          "named": true
+        },
+        {
+          "type": "scan_interface_chain_definition",
+          "named": true
+        },
+        {
+          "type": "scan_interface_port_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scan_interface_port_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "concat_signal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "scan_mux_definition",
     "named": true,
     "fields": {},
@@ -1769,7 +2258,19 @@
       "required": false,
       "types": [
         {
+          "type": "access_generic_link_definition",
+          "named": true
+        },
+        {
+          "type": "access_link_1149_definition",
+          "named": true
+        },
+        {
           "type": "address_port_definition",
+          "named": true
+        },
+        {
+          "type": "alias_definition",
           "named": true
         },
         {
@@ -1805,6 +2306,10 @@
           "named": true
         },
         {
+          "type": "enum_definition",
+          "named": true
+        },
+        {
           "type": "instance_definition",
           "named": true
         },
@@ -1825,6 +2330,14 @@
           "named": true
         },
         {
+          "type": "onehot_data_group_definition",
+          "named": true
+        },
+        {
+          "type": "onehot_scan_group_definition",
+          "named": true
+        },
+        {
           "type": "parameter_definition",
           "named": true
         },
@@ -1838,6 +2351,10 @@
         },
         {
           "type": "scan_in_port_definition",
+          "named": true
+        },
+        {
+          "type": "scan_interface_definition",
           "named": true
         },
         {
@@ -2544,6 +3061,10 @@
     "named": false
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -2584,7 +3105,19 @@
     "named": false
   },
   {
+    "type": "AccessLink",
+    "named": false
+  },
+  {
+    "type": "AccessTogether",
+    "named": false
+  },
+  {
     "type": "ActivePolarity",
+    "named": false
+  },
+  {
+    "type": "ActiveSignals",
     "named": false
   },
   {
@@ -2593,6 +3126,10 @@
   },
   {
     "type": "AddressValue",
+    "named": false
+  },
+  {
+    "type": "Alias",
     "named": false
   },
   {
@@ -2608,11 +3145,19 @@
     "named": false
   },
   {
+    "type": "BSDLEntity",
+    "named": false
+  },
+  {
     "type": "CaptureEnPort",
     "named": false
   },
   {
     "type": "CaptureSource",
+    "named": false
+  },
+  {
+    "type": "Chain",
     "named": false
   },
   {
@@ -2656,6 +3201,10 @@
     "named": false
   },
   {
+    "type": "Enum",
+    "named": false
+  },
+  {
     "type": "FreqDivider",
     "named": false
   },
@@ -2696,11 +3245,23 @@
     "named": false
   },
   {
+    "type": "OneHotDataGroup",
+    "named": false
+  },
+  {
+    "type": "OneHotScanGroup",
+    "named": false
+  },
+  {
     "type": "Parameter",
     "named": false
   },
   {
     "type": "Period",
+    "named": false
+  },
+  {
+    "type": "Port",
     "named": false
   },
   {
@@ -2728,11 +3289,23 @@
     "named": false
   },
   {
+    "type": "STD_1149_1_2001",
+    "named": false
+  },
+  {
+    "type": "STD_1149_1_2013",
+    "named": false
+  },
+  {
     "type": "ScanInPort",
     "named": false
   },
   {
     "type": "ScanInSource",
+    "named": false
+  },
+  {
+    "type": "ScanInterface",
     "named": false
   },
   {
@@ -2856,6 +3429,10 @@
     "named": false
   },
   {
+    "type": "access_generic_link_text",
+    "named": true
+  },
+  {
     "type": "b",
     "named": false
   },
@@ -2865,6 +3442,10 @@
   },
   {
     "type": "h",
+    "named": false
+  },
+  {
+    "type": "iApplyEndState",
     "named": false
   },
   {

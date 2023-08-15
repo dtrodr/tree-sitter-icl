@@ -23,28 +23,6 @@ Module foo { }
     (module_body)))
 
 ==================
-Attributes declarations
-==================
-Attribute foo;
-Attribute foo = 1;
-Attribute foo = "bar";
-Attribute foo = 1, 2;
-Attribute foo = "bar", "baz";
----
-(source_file
-  (attribute_definition (scalar_identifier))
-  (attribute_definition (scalar_identifier)
-    (attribute_value (concat_number (positive_integer))))
-  (attribute_definition (scalar_identifier)
-    (attribute_value (concat_string (string (string_content)))))
-  (attribute_definition (scalar_identifier)
-    (attribute_value (concat_number (positive_integer) (positive_integer))))
-  (attribute_definition (scalar_identifier)
-    (attribute_value (concat_string
-       (string (string_content)) (string (string_content))))))
-
-
-==================
 Integer Expressions
 ==================
 Parameter foo = 1;
@@ -64,9 +42,24 @@ Parameter foo = ($FOO % 7) / 2;
         (parameter_value
           (concat_number
             (integer_expression
-              (integer_expression
-                (positive_integer)
-                (positive_integer))))))
+              (positive_integer)
+              (positive_integer)))))
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (integer_expression
+              (parameter_reference)
+              (parameter_reference)))))
+      (parameter_definition
+        (scalar_identifier)
+        (parameter_value
+          (concat_number
+            (integer_expression
+              (positive_integer)
+                (integer_expression
+                  (positive_integer)
+                  (positive_integer))))))
       (parameter_definition
         (scalar_identifier)
         (parameter_value
@@ -74,29 +67,8 @@ Parameter foo = ($FOO % 7) / 2;
             (integer_expression
               (integer_expression
                 (parameter_reference)
-                (parameter_reference))))))
-      (parameter_definition
-        (scalar_identifier)
-        (parameter_value
-          (concat_number
-            (integer_expression
-              (integer_expression
-                (positive_integer)
-                (integer_expression
-                  (integer_expression
-                    (positive_integer)
-                    (positive_integer))))))))
-      (parameter_definition
-        (scalar_identifier)
-        (parameter_value
-          (concat_number
-            (integer_expression
-              (integer_expression
-                (integer_expression
-                  (integer_expression
-                    (parameter_reference)
-                    (positive_integer)))
-                (positive_integer)))))))
+                (positive_integer))
+            (positive_integer))))))
 
 ==================
 Logic Expressions
@@ -209,3 +181,106 @@ LogicSignal foo { (a & !b) | c }
               (signal
                 (scalar_identifier)))))))
 
+==================
+Index and Ranges
+==================
+DataInPort foo[0];
+DataInPort foo[2+3];
+DataInPort foo[$FOO];
+DataInPort foo[1:0];
+DataInPort foo[$FOO-1:0];
+---
+(source_file
+  (data_in_port_definition
+    (vector_identifier
+      (scalar_identifier)
+      (index
+        (integer_expression
+          (positive_integer)))))
+  (data_in_port_definition
+    (vector_identifier
+      (scalar_identifier)
+      (index
+        (integer_expression
+          (positive_integer)
+          (positive_integer)))))
+  (data_in_port_definition
+    (vector_identifier
+      (scalar_identifier)
+      (index
+        (integer_expression
+          (parameter_reference)))))
+  (data_in_port_definition
+    (vector_identifier
+      (scalar_identifier)
+      (range
+        (index
+          (integer_expression
+            (positive_integer)))
+        (index
+          (integer_expression
+            (positive_integer))))))
+  (data_in_port_definition
+    (vector_identifier
+      (scalar_identifier)
+      (range
+        (index
+          (integer_expression
+            (parameter_reference)
+            (positive_integer)))
+        (index
+          (integer_expression
+            (positive_integer)))))))
+
+==================
+Numbers
+==================
+Attribute foo = 8'b0000_0001;
+Attribute foo = 'B0000_0001;
+Attribute foo = 4'd8;
+Attribute foo = 'D7;
+Attribute foo = 32'hdead_beef;
+Attribute foo = 'Hdead_beef;
+---
+(source_file
+  (attribute_definition
+    (scalar_identifier)
+    (attribute_value
+      (concat_number
+        (sized_binary_number
+          (size
+            (positive_integer))
+          (unsized_binary_number)))))
+  (attribute_definition
+    (scalar_identifier)
+    (attribute_value
+      (concat_number
+        (unsized_binary_number))))
+  (attribute_definition
+    (scalar_identifier)
+    (attribute_value
+      (concat_number
+        (sized_decimal_number
+          (size
+            (positive_integer))
+          (unsized_decimal_number
+            (positive_integer))))))
+  (attribute_definition
+    (scalar_identifier)
+    (attribute_value
+      (concat_number
+        (unsized_decimal_number
+          (positive_integer)))))
+  (attribute_definition
+    (scalar_identifier)
+    (attribute_value
+      (concat_number
+        (sized_hex_number
+          (size
+            (positive_integer))
+          (unsized_hex_number)))))
+  (attribute_definition
+    (scalar_identifier)
+    (attribute_value
+      (concat_number
+        (unsized_hex_number)))))
