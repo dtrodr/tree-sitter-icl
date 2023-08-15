@@ -73,16 +73,16 @@ Parameter foo = ($FOO % 7) / 2;
 ==================
 Logic Expressions
 ==================
-LogicSignal foo { a && b }
-LogicSignal foo { a || b }
-LogicSignal foo { !a }
-LogicSignal foo { ~a }
-LogicSignal foo { a & b }
-LogicSignal foo { a | b }
-LogicSignal foo { a ^ b }
-LogicSignal foo { a == b }
-LogicSignal foo { a != b }
-LogicSignal foo { (a & !b) | c }
+LogicSignal foo { a && b; }
+LogicSignal foo { a || b; }
+LogicSignal foo { !a; }
+LogicSignal foo { ~a; }
+LogicSignal foo { a & b; }
+LogicSignal foo { a | b; }
+LogicSignal foo { a ^ b; }
+LogicSignal foo { a == b; }
+LogicSignal foo { a != b; }
+LogicSignal foo { (a & !b) | c; }
 ---
 (source_file
       (logic_signal_definition

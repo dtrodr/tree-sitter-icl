@@ -654,6 +654,10 @@
         {
           "type": "scalar_identifier",
           "named": true
+        },
+        {
+          "type": "vector_identifier",
+          "named": true
         }
       ]
     }
@@ -3435,6 +3439,10 @@
   {
     "type": "b",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   },
   {
     "type": "d",

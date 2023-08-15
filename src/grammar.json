@@ -1,5 +1,5 @@
 {
-  "name": "ICL",
+  "name": "icl",
   "rules": {
     "source_file": {
       "type": "REPEAT",
@@ -1899,7 +1899,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "CHOICE",
@@ -2673,6 +2673,10 @@
         {
           "type": "SYMBOL",
           "name": "logic_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
         },
         {
           "type": "STRING",
@@ -4587,6 +4591,10 @@
     {
       "type": "PATTERN",
       "value": "\\s"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "comment"
     }
   ],
   "conflicts": [],

@@ -1,6 +1,7 @@
 module.exports = grammar({
-    name: 'ICL',
-
+    name: 'icl',
+    //word: $ => $.scalar_identifier,
+    extras: $ => [/\s/, $.comment],
     rules: {
         source_file: $ => repeat(choice(
             $._icl_source_items,
@@ -393,7 +394,7 @@ module.exports = grammar({
         ),
 
         data_out_port_definition: $ => seq(
-            'DataOutPort', $.scalar_identifier,
+            'DataOutPort', $._signal_identifier,
             choice(
                 ';',
                 seq('{', repeat($._data_out_port_item), '}'),
@@ -539,7 +540,7 @@ module.exports = grammar({
 
         logic_signal_definition: $ => seq(
             'LogicSignal', $._signal_identifier,
-            '{', $.logic_expression, '}',
+            '{', $.logic_expression, ';', '}',
         ),
 
         parameter_definition: $ => seq(
