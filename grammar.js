@@ -1,6 +1,5 @@
 module.exports = grammar({
     name: 'icl',
-    //word: $ => $.scalar_identifier,
     extras: $ => [/\s/, $.comment],
     rules: {
         source_file: $ => repeat(choice(
@@ -184,7 +183,6 @@ module.exports = grammar({
             '[', choice($.index, $.range), ']'
         ),
         enum_name: $ => /[a-zA-Z][a-zA-Z0-9_$]*/,
-        //enum_name: $ => alias($.scalar_identifier, $.enum_name),
 
         enum_definition: $ => seq(
             'Enum', $.enum_name, '{', repeat($.enum_item), '}'
@@ -692,11 +690,6 @@ module.exports = grammar({
             $.hier_port
         ),
 
-        //signal: $ => alias($._signal, $.signal),
-        //signal: $ => seq(optional('~'), $._signal),
-        //jtag_signal: $ => alias($._signal, $._jtag_signal),
-        jtag_signal: $ => alias($.signal, $.jtag_signal),
-
         concat_signal: $ => prec.left(seq(
             $.signal,
             repeat(seq(',', $.signal))
@@ -753,7 +746,7 @@ module.exports = grammar({
 
         size: $ => choice(
             $.positive_integer,
-            seq('$', $.scalar_identifier)
+            $.parameter_reference
         ),
 
         _unsized_number: $ => choice(
@@ -802,7 +795,6 @@ module.exports = grammar({
 
         escape_sequence: $ => seq('\\',choice('\\', '"')),
 
-        //parameter_reference: $ => token.immediate(seq('$', /[a-zA-Z][a-zA-Z0-9_$]*/)),
         parameter_reference: $ => /\$[a-zA-Z][a-zA-Z0-9_$]*/,
 
         // from: https://github.com/tree-sitter/tree-sitter-c/blob/master/grammar.js
@@ -817,7 +809,6 @@ module.exports = grammar({
 
         // === Logic Expression ===
         // Following the IEEE spec
-        //integer_expression: $ => alias($._integer_expression_lvl1, $.integer_expression),
         integer_expression: $ => $._integer_expression_lvl1,
 
         _integer_expression_lvl1: $ => prec.left(seq(

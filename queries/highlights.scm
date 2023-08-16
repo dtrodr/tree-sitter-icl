@@ -1,0 +1,125 @@
+(comment) @comment
+(string) @string
+(scalar_identifier) @variable
+(parameter_reference) @property
+
+[
+ (positive_integer)
+ (unsized_decimal_number)
+ (unsized_binary_number)
+ (unsized_hex_number)
+ ] @number
+
+[
+    "AccessLink"
+    "AccessTogether"
+    "ActivePolarity"
+    "ActiveSignals"
+    "AddressPort"
+    "AddressValue"
+    "Alias"
+    "AllowBroadcastOnScanInterface"
+    "Attribute"
+    "BSDLEntity"
+    "CaptureEnPort"
+    "CaptureSource"
+    "Chain"
+    "ClockMux"
+    "ClockPort"
+    "DataInPort"
+    "DataMux"
+    "DataOutPort"
+    "DataRegister"
+    "DefaultLoadValue"
+    "DifferentialInvOf"
+    "Enable"
+    "Enum"
+    "FreqDivider"
+    "FreqMultiplier"
+    "InputPort"
+    "Instance"
+    "LocalParameter"
+    "LogicSignal"
+    "Module"
+    "NameSpace"
+    "Of"
+    "OneHotDataGroup"
+    "OneHotScanGroup"
+    "Parameter"
+    "Period"
+    "Port"
+    "ReadCallBack"
+    "ReadDataSource"
+    "ReadEnPort"
+    "RefEnum"
+    "ResetPort"
+    "ResetValue"
+    "STD_1149_1_2001"
+    "STD_1149_1_2013"
+    "ScanInPort"
+    "ScanInSource"
+    "ScanInterface"
+    "ScanMux"
+    "ScanOutPort"
+    "ScanRegister"
+    "SelectPort"
+    "SelectedBy"
+    "ShiftEnPort"
+    "Source"
+    "TCKPort"
+    "TMSPort"
+    "TRSTPort"
+    "ToCaptureEnPort"
+    "ToClockPort"
+    "ToIRSelectPort"
+    "ToResetPort"
+    "ToSelectPort"
+    "ToShiftEnPort"
+    "ToTCKPort"
+    "ToTMSPort"
+    "ToTRSTPort"
+    "ToUpdateEnPort"
+    "UpdateEnPort"
+    "UseNameSpace"
+    "WriteCallBack"
+    "WriteDataSource"
+    "WriteEnPort"
+    "WriteEnSource"
+    "iApplyEndState"
+] @keyword
+
+[
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    "~"
+    "!"
+    "^"
+    "|"
+    "&"
+    "&&"
+    "||"
+    "=="
+    "!="
+    "="
+] @operator
+
+[
+    ";"
+    ":"
+    "::"
+    ","
+    "."
+] @punctuation.delimiter
+
+[
+    "["
+    "]"
+    "{"
+    "}"
+    "("
+    ")"
+] @punctuation.bracket
+
