@@ -333,3 +333,26 @@ ClockMux foo SelectedBy sel[1:0] {
         (concat_number (sized_binary_number
             (size (positive_integer)) (unsized_binary_number))))
         (concat_signal (signal (scalar_identifier))))))
+==================
+InstanceArr
+==================
+Instance bar Of baz {
+    InputPort qux[0] = 1;
+    InputPort qux[1] = 1;
+}
+---
+ (source_file
+      (instance_definition
+        (scalar_identifier) (scalar_identifier)
+        (input_port_connection
+          (vector_identifier
+            (scalar_identifier)
+            (index (integer_expression (positive_integer))))
+          (concat_signal (signal (positive_integer))))
+        (input_port_connection
+          (vector_identifier
+            (scalar_identifier)
+            (index (integer_expression (positive_integer))))
+          (concat_signal
+            (signal (positive_integer))))))
+
