@@ -77,7 +77,7 @@ module.exports = grammar({
             $.address_value,
         ),
         input_port_connection: $ => seq(
-            'InputPort', $.scalar_identifier, '=', $.concat_signal, ';'
+            'InputPort', $._signal_identifier, '=', $.concat_signal, ';'
         ),
         allow_broadcast_definition: $ => seq(
             'AllowBroadcastOnScanInterface', $.scalar_identifier, ';'
@@ -175,7 +175,6 @@ module.exports = grammar({
 
 
         
-
         // must start with letter - then underscore and digits allowed
         scalar_identifier: $ => /[a-zA-Z][a-zA-Z0-9_$]*/,
         vector_identifier: $ => seq(
@@ -339,7 +338,15 @@ module.exports = grammar({
             $.attribute_definition,
             $.port_source,
         ),
+        _to_tck_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
         _to_trst_port_item: $ => choice(
+            $.attribute_definition,
+            $.port_source,
+        ),
+        _to_ir_select_port_item: $ => choice(
             $.attribute_definition,
             $.port_source,
         ),
@@ -458,7 +465,7 @@ module.exports = grammar({
             'ToTCKPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_tck_port_item), '}'),
             ),
         ),
 
@@ -498,7 +505,7 @@ module.exports = grammar({
             'ToIRSelectPort', $._signal_identifier,
             choice(
                 ';',
-                seq('{', repeat($.attribute_definition), '}'),
+                seq('{', repeat($._to_ir_select_port_item), '}'),
             ),
         ),
 

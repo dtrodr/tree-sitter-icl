@@ -355,7 +355,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "scalar_identifier"
+          "name": "_signal_identifier"
         },
         {
           "type": "STRING",
@@ -1635,7 +1635,33 @@
         }
       ]
     },
+    "_to_tck_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
     "_to_trst_port_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "port_source"
+        }
+      ]
+    },
+    "_to_ir_select_port_item": {
       "type": "CHOICE",
       "members": [
         {
@@ -2255,7 +2281,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_tck_port_item"
                   }
                 },
                 {
@@ -2465,7 +2491,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "attribute_definition"
+                    "name": "_to_ir_select_port_item"
                   }
                 },
                 {
@@ -3519,15 +3545,6 @@
         }
       ]
     },
-    "jtag_signal": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "signal"
-      },
-      "named": true,
-      "value": "jtag_signal"
-    },
     "concat_signal": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -3837,17 +3854,8 @@
           "name": "positive_integer"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "$"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "scalar_identifier"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "parameter_reference"
         }
       ]
     },
